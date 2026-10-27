@@ -12,284 +12,284 @@
   "temporada": "2026-27",
   "contactos": [
     {
-      "nombre": "SERGIO VALDIVIA YUPANQUI",
+      "nombre": "ANA PRUEBA EJEMPLO 01",
       "telefono": "600000001",
-      "email": "sergio.valdivia.yupanqui@example.com"
+      "email": "ana.prueba.ejemplo@example.com"
     },
     {
-      "nombre": "JUAN PABLO CUESTA DIAZ",
+      "nombre": "LUIS EJEMPLO EJEMPLO 02",
       "telefono": "600000002",
-      "email": "juan.pablo.cuesta.diaz@example.com"
+      "email": "luis.ejemplo.ejemplo@example.com"
     },
     {
-      "nombre": "RAUL OSMA MANZANO",
+      "nombre": "MARTA FICTICIO EJEMPLO 03",
       "telefono": "600000003",
-      "email": "raul.osma.manzano@example.com"
+      "email": "marta.ficticio.ejemplo@example.com"
     },
     {
-      "nombre": "DAVID SANCHEZ LLORENS",
+      "nombre": "PABLO DEMO EJEMPLO 04",
       "telefono": "600000004",
-      "email": "david.sanchez.llorens@example.com"
+      "email": "pablo.demo.ejemplo@example.com"
     },
     {
-      "nombre": "HARRY KILLOUGHERY",
+      "nombre": "LUCÍA MUESTRA EJEMPLO 05",
       "telefono": "600000005",
-      "email": "harry.killoughery@example.com"
+      "email": "lucia.muestra.ejemplo@example.com"
     },
     {
-      "nombre": "JOSÉ MANUEL SEGOVIA BENITO",
+      "nombre": "DAVID ENSAYO EJEMPLO 06",
       "telefono": "600000006",
-      "email": "jose.manuel.segovia.benito@example.com"
+      "email": "david.ensayo.ejemplo@example.com"
     },
     {
-      "nombre": "CARLOS RODAS GOMEZ",
+      "nombre": "SARA PRUEBA FICTICIO 07",
       "telefono": "600000007",
-      "email": "carlos.rodas.gomez@example.com"
+      "email": "sara.prueba.ficticio@example.com"
     },
     {
-      "nombre": "FERNANDO GARCIA RODRIGUEZ",
+      "nombre": "JORGE EJEMPLO FICTICIO 08",
       "telefono": "600000008",
-      "email": "fernando.garcia.rodriguez@example.com"
+      "email": "jorge.ejemplo.ficticio@example.com"
     },
     {
-      "nombre": "ENRIQUE FERNÁNDEZ PASTOR",
+      "nombre": "ELENA FICTICIO FICTICIO 09",
       "telefono": "600000009",
-      "email": "enrique.fernandez.pastor@example.com"
+      "email": "elena.ficticio.ficticio@example.com"
     },
     {
-      "nombre": "IGNACIO RODRIGUEZ GARCIA-CEBADERA",
+      "nombre": "MARCOS DEMO FICTICIO 10",
       "telefono": "600000010",
-      "email": "ignacio.rodriguez.garcia.cebadera@example.com"
+      "email": "marcos.demo.ficticio@example.com"
     },
     {
-      "nombre": "ALBERTO OVIEDO MONTES",
+      "nombre": "NURIA MUESTRA FICTICIO 11",
       "telefono": "600000011",
-      "email": "alberto.oviedo.montes@example.com"
+      "email": "nuria.muestra.ficticio@example.com"
     },
     {
-      "nombre": "EDUARDO GÓMEZ MESTO",
+      "nombre": "IVÁN ENSAYO FICTICIO 12",
       "telefono": "600000012",
-      "email": "eduardo.gomez.mesto@example.com"
+      "email": "ivan.ensayo.ficticio@example.com"
     },
     {
-      "nombre": "DAVID MARTINEZ ALCAZAR",
+      "nombre": "ANA PRUEBA DEMO 13",
       "telefono": "600000013",
-      "email": "david.martinez.alcazar@example.com"
+      "email": "ana.prueba.demo@example.com"
     },
     {
-      "nombre": "JOSE ANTONIO SEPULVEDA MARTINEZ",
+      "nombre": "LUIS EJEMPLO DEMO 14",
       "telefono": "600000014",
-      "email": "jose.antonio.sepulveda.martinez@example.com"
+      "email": "luis.ejemplo.demo@example.com"
     },
     {
-      "nombre": "RAFAEL NOGUEIRO BUSTAMANTE",
+      "nombre": "MARTA FICTICIO DEMO 15",
       "telefono": "600000015",
-      "email": "rafael.nogueiro.bustamante@example.com"
+      "email": "marta.ficticio.demo@example.com"
     },
     {
-      "nombre": "JAVIER DE MIGUEL DEL VALLE",
+      "nombre": "PABLO DEMO DEMO 16",
       "telefono": "600000016",
-      "email": "javier.de.miguel.del.valle@example.com"
+      "email": "pablo.demo.demo@example.com"
     },
     {
-      "nombre": "JOSE IGNACIO ORTIZ LOPEZ",
+      "nombre": "LUCÍA MUESTRA DEMO 17",
       "telefono": "600000017",
-      "email": "jose.ignacio.ortiz.lopez@example.com"
+      "email": "lucia.muestra.demo@example.com"
     },
     {
-      "nombre": "ESTEFANÍA LEDESMA GUTIÉRREZ",
+      "nombre": "DAVID ENSAYO DEMO 18",
       "telefono": "600000018",
-      "email": "estefania.ledesma.gutierrez@example.com"
+      "email": "david.ensayo.demo@example.com"
     },
     {
-      "nombre": "JOSÉ JAVIER RODRÍGUEZ IRAUSQUIN",
+      "nombre": "SARA PRUEBA MUESTRA 19",
       "telefono": "600000019",
-      "email": "jose.javier.rodriguez.irausquin@example.com"
+      "email": "sara.prueba.muestra@example.com"
     },
     {
-      "nombre": "MARCOS LÓPEZ CUESTA",
+      "nombre": "JORGE EJEMPLO MUESTRA 20",
       "telefono": "600000020",
-      "email": "marcos.lopez.cuesta@example.com"
+      "email": "jorge.ejemplo.muestra@example.com"
     },
     {
-      "nombre": "JORGE SANZ DE LA CRUZ",
+      "nombre": "ELENA FICTICIO MUESTRA 21",
       "telefono": "600000021",
-      "email": "jorge.sanz.de.la.cruz@example.com"
+      "email": "elena.ficticio.muestra@example.com"
     },
     {
-      "nombre": "ÓSCAR CASAS FRANCO",
+      "nombre": "MARCOS DEMO MUESTRA 22",
       "telefono": "600000022",
-      "email": "oscar.casas.franco@example.com"
+      "email": "marcos.demo.muestra@example.com"
     },
     {
-      "nombre": "RICARDO SIMÓN GARRIDO",
+      "nombre": "NURIA MUESTRA MUESTRA 23",
       "telefono": "600000023",
-      "email": "ricardo.simon.garrido@example.com"
+      "email": "nuria.muestra.muestra@example.com"
     },
     {
-      "nombre": "JESÚS ZORITA DÍAZ",
+      "nombre": "IVÁN ENSAYO MUESTRA 24",
       "telefono": "600000024",
-      "email": "jesus.zorita.diaz@example.com"
+      "email": "ivan.ensayo.muestra@example.com"
     },
     {
-      "nombre": "CARLOS AGUDO BLANCO",
+      "nombre": "ANA PRUEBA ENSAYO 25",
       "telefono": "600000025",
-      "email": "carlos.agudo.blanco@example.com"
+      "email": "ana.prueba.ensayo@example.com"
     },
     {
-      "nombre": "DAVID GUERRA MARTÍN",
+      "nombre": "LUIS EJEMPLO ENSAYO 26",
       "telefono": "600000026",
-      "email": "david.guerra.martin@example.com"
+      "email": "luis.ejemplo.ensayo@example.com"
     },
     {
-      "nombre": "JORGE JUAN NEVADO GÓMEZ",
+      "nombre": "MARTA FICTICIO ENSAYO 27",
       "telefono": "600000027",
-      "email": "jorge.juan.nevado.gomez@example.com"
+      "email": "marta.ficticio.ensayo@example.com"
     },
     {
-      "nombre": "JAVIER LAZARO CADENA",
+      "nombre": "PABLO DEMO ENSAYO 28",
       "telefono": "600000028",
-      "email": "javier.lazaro.cadena@example.com"
+      "email": "pablo.demo.ensayo@example.com"
     },
     {
-      "nombre": "GREGORIO ANDRES REDONDO VAQUERIZAS",
+      "nombre": "LUCÍA MUESTRA ENSAYO 29",
       "telefono": "600000029",
-      "email": "gregorio.andres.redondo.vaquerizas@example.com"
+      "email": "lucia.muestra.ensayo@example.com"
     },
     {
-      "nombre": "DANIEL DE LA TORRE BARAJAS",
+      "nombre": "DAVID ENSAYO ENSAYO 30",
       "telefono": "600000030",
-      "email": "daniel.de.la.torre.barajas@example.com"
+      "email": "david.ensayo.ensayo@example.com"
     },
     {
-      "nombre": "SERGIO BAUTISTA IGLESIAS",
+      "nombre": "SARA PRUEBA PRUEBA 31",
       "telefono": "600000031",
-      "email": "sergio.bautista.iglesias@example.com"
+      "email": "sara.prueba.prueba@example.com"
     },
     {
-      "nombre": "JERONIMO RUANO JIMENEZ",
+      "nombre": "JORGE EJEMPLO PRUEBA 32",
       "telefono": "600000032",
-      "email": "jeronimo.ruano.jimenez@example.com"
+      "email": "jorge.ejemplo.prueba@example.com"
     },
     {
-      "nombre": "FERNANDO MONTERO SAN JUAN",
+      "nombre": "ELENA FICTICIO PRUEBA 33",
       "telefono": "600000033",
-      "email": "fernando.montero.san.juan@example.com"
+      "email": "elena.ficticio.prueba@example.com"
     },
     {
-      "nombre": "TOMAS MANUEL SALAMERO CARRION",
+      "nombre": "MARCOS DEMO PRUEBA 34",
       "telefono": "600000034",
-      "email": "tomas.manuel.salamero.carrion@example.com"
+      "email": "marcos.demo.prueba@example.com"
     },
     {
-      "nombre": "DIEGO MARTÍNEZ BLANCO",
+      "nombre": "NURIA MUESTRA PRUEBA 35",
       "telefono": "600000035",
-      "email": "diego.martinez.blanco@example.com"
+      "email": "nuria.muestra.prueba@example.com"
     },
     {
-      "nombre": "MARTA UGARTE LÓPEZ",
+      "nombre": "IVÁN ENSAYO PRUEBA 36",
       "telefono": "600000036",
-      "email": "marta.ugarte.lopez@example.com"
+      "email": "ivan.ensayo.prueba@example.com"
     },
     {
-      "nombre": "BORJA DE LA FUENTE MUÑOZ",
+      "nombre": "ANA PRUEBA EJEMPLO 37",
       "telefono": "600000037",
-      "email": "borja.de.la.fuente.munoz@example.com"
+      "email": "ana.prueba.ejemplo@example.com"
     },
     {
-      "nombre": "MIGUEL ORTEGA GARCIA-CONDE",
+      "nombre": "LUIS EJEMPLO EJEMPLO 38",
       "telefono": "600000038",
-      "email": "miguel.ortega.garcia.conde@example.com"
+      "email": "luis.ejemplo.ejemplo@example.com"
     },
     {
-      "nombre": "PEDRO VALDIVIA CONDE",
+      "nombre": "MARTA FICTICIO EJEMPLO 39",
       "telefono": "600000039",
-      "email": "pedro.valdivia.conde@example.com"
+      "email": "marta.ficticio.ejemplo@example.com"
     },
     {
-      "nombre": "JORGE RÁBAGO VILLORIA",
+      "nombre": "PABLO DEMO EJEMPLO 40",
       "telefono": "600000040",
-      "email": "jorge.rabago.villoria@example.com"
+      "email": "pablo.demo.ejemplo@example.com"
     },
     {
-      "nombre": "ALFONSO HERRERA NAVARRO",
+      "nombre": "LUCÍA MUESTRA EJEMPLO 41",
       "telefono": "600000041",
-      "email": "alfonso.herrera.navarro@example.com"
+      "email": "lucia.muestra.ejemplo@example.com"
     },
     {
-      "nombre": "JAVIER BARRIOS DOMÍNGUEZ",
+      "nombre": "DAVID ENSAYO EJEMPLO 42",
       "telefono": "600000042",
-      "email": "javier.barrios.dominguez@example.com"
+      "email": "david.ensayo.ejemplo@example.com"
     },
     {
-      "nombre": "IDAIRA MORENO AQUINO",
+      "nombre": "SARA PRUEBA FICTICIO 43",
       "telefono": "600000043",
-      "email": "idaira.moreno.aquino@example.com"
+      "email": "sara.prueba.ficticio@example.com"
     },
     {
-      "nombre": "CARLOS DOMINGO GORDO",
+      "nombre": "JORGE EJEMPLO FICTICIO 44",
       "telefono": "600000044",
-      "email": "carlos.domingo.gordo@example.com"
+      "email": "jorge.ejemplo.ficticio@example.com"
     },
     {
-      "nombre": "JUAN CARLOS AGUDO MADRIGAL",
+      "nombre": "ELENA FICTICIO FICTICIO 45",
       "telefono": "600000045",
-      "email": "juan.carlos.agudo.madrigal@example.com"
+      "email": "elena.ficticio.ficticio@example.com"
     },
     {
-      "nombre": "JOSE RUANO DOMINGUEZ",
+      "nombre": "MARCOS DEMO FICTICIO 46",
       "telefono": "600000046",
-      "email": "jose.ruano.dominguez@example.com"
+      "email": "marcos.demo.ficticio@example.com"
     },
     {
-      "nombre": "FRANCISCO ADANERO MERINO",
+      "nombre": "NURIA MUESTRA FICTICIO 47",
       "telefono": "600000047",
-      "email": "francisco.adanero.merino@example.com"
+      "email": "nuria.muestra.ficticio@example.com"
     },
     {
-      "nombre": "RAUL MORENO RUBIO",
+      "nombre": "IVÁN ENSAYO FICTICIO 48",
       "telefono": "600000048",
-      "email": "raul.moreno.rubio@example.com"
+      "email": "ivan.ensayo.ficticio@example.com"
     },
     {
-      "nombre": "JAVIER FARIÑA QUIROGA",
+      "nombre": "ANA PRUEBA DEMO 49",
       "telefono": "600000049",
-      "email": "javier.farina.quiroga@example.com"
+      "email": "ana.prueba.demo@example.com"
     },
     {
-      "nombre": "ANA GARCÍA GARCÉS",
+      "nombre": "LUIS EJEMPLO DEMO 50",
       "telefono": "600000050",
-      "email": "ana.garcia.garces@example.com"
+      "email": "luis.ejemplo.demo@example.com"
     },
     {
-      "nombre": "FRANCISCO JAVIER CARRETERO LAZARO",
+      "nombre": "MARTA FICTICIO DEMO 51",
       "telefono": "600000051",
-      "email": "francisco.javier.carretero.lazaro@example.com"
+      "email": "marta.ficticio.demo@example.com"
     },
     {
-      "nombre": "MANUELA ABELLÁN MARÍN",
+      "nombre": "PABLO DEMO DEMO 52",
       "telefono": "600000052",
-      "email": "manuela.abellan.marin@example.com"
+      "email": "pablo.demo.demo@example.com"
     },
     {
-      "nombre": "MAURICIO BLANCO CASABELLA",
+      "nombre": "LUCÍA MUESTRA DEMO 53",
       "telefono": "600000053",
-      "email": "mauricio.blanco.casabella@example.com"
+      "email": "lucia.muestra.demo@example.com"
     },
     {
-      "nombre": "JOHN GRISWOLD ORELLANA",
+      "nombre": "DAVID ENSAYO DEMO 54",
       "telefono": "600000054",
-      "email": "john.griswold.orellana@example.com"
+      "email": "david.ensayo.demo@example.com"
     },
     {
-      "nombre": "NATIVIDAD PARRADO COLINAS",
+      "nombre": "SARA PRUEBA MUESTRA 55",
       "telefono": "600000055",
-      "email": "natividad.parrado.colinas@example.com"
+      "email": "sara.prueba.muestra@example.com"
     },
     {
-      "nombre": "ALFONSO HERRERA GOLDEROS",
+      "nombre": "JORGE EJEMPLO MUESTRA 56",
       "telefono": "600000056",
-      "email": "alfonso.herrera.golderos@example.com"
+      "email": "jorge.ejemplo.muestra@example.com"
     },
     {
       "nombre": "IGNACIO GREGORIO SALES",
@@ -332,84 +332,84 @@
       "email": "juan.jose.ruiz.vazquez@example.com"
     },
     {
-      "nombre": "RAFAEL SÁNCHEZ MUJICA",
+      "nombre": "ELENA FICTICIO MUESTRA 57",
       "telefono": "600000065",
-      "email": "rafael.sanchez.mujica@example.com"
+      "email": "elena.ficticio.muestra@example.com"
     },
     {
-      "nombre": "JAIME MUÑOZ SAN JUAN",
+      "nombre": "MARCOS DEMO MUESTRA 58",
       "telefono": "600000066",
-      "email": "jaime.munoz.san.juan@example.com"
+      "email": "marcos.demo.muestra@example.com"
     },
     {
-      "nombre": "ANTONIO NÚÑEZ ELVIRA",
+      "nombre": "NURIA MUESTRA MUESTRA 59",
       "telefono": "600000067",
-      "email": "antonio.nunez.elvira@example.com"
+      "email": "nuria.muestra.muestra@example.com"
     },
     {
-      "nombre": "ÁNGEL LUIS DÍAZ FERNÁNDEZ",
+      "nombre": "IVÁN ENSAYO MUESTRA 60",
       "telefono": "600000068",
-      "email": "angel.luis.diaz.fernandez@example.com"
+      "email": "ivan.ensayo.muestra@example.com"
     },
     {
-      "nombre": "HERVE VALDIVIA ALTAMIRANO",
+      "nombre": "ANA PRUEBA ENSAYO 61",
       "telefono": "600000069",
-      "email": "herve.valdivia.altamirano@example.com"
+      "email": "ana.prueba.ensayo@example.com"
     },
     {
-      "nombre": "MARIO LÓPEZ LÓPEZ",
+      "nombre": "LUIS EJEMPLO ENSAYO 62",
       "telefono": "600000070",
-      "email": "mario.lopez.lopez@example.com"
+      "email": "luis.ejemplo.ensayo@example.com"
     },
     {
-      "nombre": "ALEJANDRO FEDRIANI MARTÍNEZ",
+      "nombre": "MARTA FICTICIO ENSAYO 63",
       "telefono": "600000071",
-      "email": "alejandro.fedriani.martinez@example.com"
+      "email": "marta.ficticio.ensayo@example.com"
     },
     {
-      "nombre": "JESÚS ESCUDERO HERRANZ",
+      "nombre": "PABLO DEMO ENSAYO 64",
       "telefono": "600000072",
-      "email": "jesus.escudero.herranz@example.com"
+      "email": "pablo.demo.ensayo@example.com"
     },
     {
-      "nombre": "ROCIO MUÑOZ OLIVA",
+      "nombre": "LUCÍA MUESTRA ENSAYO 65",
       "telefono": "600000073",
-      "email": "rocio.munoz.oliva@example.com"
+      "email": "lucia.muestra.ensayo@example.com"
     },
     {
-      "nombre": "MIRIAM SAYAGO DE LA FUENTE",
+      "nombre": "DAVID ENSAYO ENSAYO 66",
       "telefono": "600000074",
-      "email": "miriam.sayago.de.la.fuente@example.com"
+      "email": "david.ensayo.ensayo@example.com"
     },
     {
-      "nombre": "FRANCISCO VELADO GUILLEN",
+      "nombre": "SARA PRUEBA PRUEBA 67",
       "telefono": "600000075",
-      "email": "francisco.velado.guillen@example.com"
+      "email": "sara.prueba.prueba@example.com"
     },
     {
-      "nombre": "JOAQUÍN LÓPEZ GAMONAL",
+      "nombre": "JORGE EJEMPLO PRUEBA 68",
       "telefono": "600000076",
-      "email": "joaquin.lopez.gamonal@example.com"
+      "email": "jorge.ejemplo.prueba@example.com"
     },
     {
-      "nombre": "FRANCISCO JAVIER GUTIÉRREZ PERNÍA",
+      "nombre": "ELENA FICTICIO PRUEBA 69",
       "telefono": "600000077",
-      "email": "francisco.javier.gutierrez.pernia@example.com"
+      "email": "elena.ficticio.prueba@example.com"
     },
     {
-      "nombre": "VERÓNICA ESCOBOSA GARCIA",
+      "nombre": "MARCOS DEMO PRUEBA 70",
       "telefono": "600000078",
-      "email": "veronica.escobosa.garcia@example.com"
+      "email": "marcos.demo.prueba@example.com"
     },
     {
-      "nombre": "MIGUEL VELADO PULIDO",
+      "nombre": "NURIA MUESTRA PRUEBA 71",
       "telefono": "600000079",
-      "email": "miguel.velado.pulido@example.com"
+      "email": "nuria.muestra.prueba@example.com"
     },
     {
-      "nombre": "ESMERALDA CABRALES ACOSTA",
+      "nombre": "IVÁN ENSAYO PRUEBA 72",
       "telefono": "600000080",
-      "email": "esmeralda.cabrales.acosta@example.com"
+      "email": "ivan.ensayo.prueba@example.com"
     }
   ],
   "calendarios": [

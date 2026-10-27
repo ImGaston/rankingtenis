@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --fondo: #f6f7f4;
+  --superficie: #ffffff;
+  --texto: #1b1f1c;
+  --texto-suave: #5b6560;
+  --borde: #dde3dd;
+  --primario: #14532d;
+  --primario-suave: #e3f1e7;
+  --acento: #c2410c;
+  --acento-suave: #fff1e8;
+  --peligro: #b91c1c;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --fondo: #0f1411;
+    --superficie: #171d19;
+    --texto: #eef2ee;
+    --texto-suave: #a3ada6;
+    --borde: #2a332d;
+    --primario: #4ade80;
+    --primario-suave: #163522;
+    --acento: #fb923c;
+    --acento-suave: #3a2113;
+    --peligro: #f87171;
   }
 }
 
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-superficie: var(--superficie);
+  --color-texto: var(--texto);
+  --color-texto-suave: var(--texto-suave);
+  --color-borde: var(--borde);
+  --color-primario: var(--primario);
+  --color-primario-suave: var(--primario-suave);
+  --color-acento: var(--acento);
+  --color-acento-suave: var(--acento-suave);
+  --color-peligro: var(--peligro);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+@layer components {
+  .tarjeta {
+    @apply rounded-xl border border-borde bg-superficie p-4 shadow-sm;
+  }
+  .boton {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .boton-primario {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 bg-primario text-white hover:opacity-90 dark:text-fondo;
+  }
+  .boton-secundario {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 border border-borde bg-superficie text-texto hover:bg-fondo;
+  }
+  .boton-acento {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 bg-acento text-white hover:opacity-90;
+  }
+  .campo {
+    @apply w-full rounded-lg border border-borde bg-superficie px-3 py-2 text-texto outline-none focus:border-primario focus:ring-2 focus:ring-primario/30;
+  }
+  .etiqueta {
+    @apply block text-sm font-medium text-texto-suave mb-1;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
 }
