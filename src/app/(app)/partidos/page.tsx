@@ -1,8 +1,15 @@
 import Link from "next/link";
 import { exigirJugador } from "@/lib/consultas/sesion";
 import { faseActual } from "@/lib/consultas/fases";
-import { misPartidos, nombreFase, rivalDe, soyLocal } from "@/lib/consultas/partidos";
+import {
+  misPartidos,
+  nombreFase,
+  resultadoOficialDe,
+  rivalDe,
+  soyLocal,
+} from "@/lib/consultas/partidos";
 import { formatearNombre, formatearTelefono } from "@/lib/dominio/nombres";
+import { formatearSets } from "@/lib/dominio/sets";
 import { formatearDia } from "@/lib/mensajes/franjas";
 import { BotonReiniciar } from "@/componentes/boton-reiniciar";
 import { BotonQuitarWo } from "@/componentes/boton-quitar-wo";
@@ -39,9 +46,12 @@ export default async function Partidos() {
             {nombreFase(grupo.fase)} · Grupo {grupo.letra} · {formatearNombre(jugador.nombre)}
           </p>
         </div>
-        <p className="text-xs text-texto-suave">
-          Local: propones tú en 48 h. Resultado: antes de 7 días.
-        </p>
+        <div className="flex flex-wrap items-center gap-3 text-xs text-texto-suave">
+          <Link href="/clasificacion" className="text-sm text-primario underline">
+            Clasificación del grupo →
+          </Link>
+          <p>Local: propones tú en 48 h. Resultado: antes de 7 días.</p>
+        </div>
       </header>
 
       <section className="space-y-3">
@@ -57,14 +67,18 @@ export default async function Partidos() {
                 .at(-1)!
                 .slice(0, 10)
             : null;
-          const wo = p.walkover;
+          const oficial = resultadoOficialDe(p);
+          const gane = oficial ? oficial.ganador_id === jugador.id : null;
+          // El resultado oficial de la liga manda; si no lo hay, un W.O. registrado
+          // también cierra el partido.
+          const wo = oficial ? null : p.walkover;
           const soyAusente = wo?.ausente_id === jugador.id;
-          const cerrado = enviado || wo !== null;
-          const enCurso = !cerrado && p.semana <= hoy;
+          const cerrado = oficial !== null || wo !== null;
+          const enCurso = !enviado && !cerrado && p.semana <= hoy;
           return (
             <article
               key={p.id}
-              className={`tarjeta space-y-3 ${cerrado ? "border-primario/40" : local ? "border-acento/50" : ""} ${enCurso ? "ring-1 ring-primario/30" : ""}`}
+              className={`tarjeta space-y-3 ${oficial ? "border-borde opacity-90" : wo || enviado ? "border-primario/40" : local ? "border-acento/50" : ""} ${enCurso ? "ring-1 ring-primario/30" : ""}`}
             >
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
@@ -77,17 +91,27 @@ export default async function Partidos() {
                   <h2 className="text-lg font-semibold">{formatearNombre(rival.nombre)}</h2>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  {wo && (
+                  {oficial ? (
+                    <span
+                      className={`chip ${gane ? "bg-primario text-white dark:text-fondo" : "bg-fondo text-texto-suave"}`}
+                    >
+                      {gane ? "Ganaste" : "Perdiste"}{" "}
+                      {local
+                        ? `${oficial.sets_local}-${oficial.sets_visitante}`
+                        : `${oficial.sets_visitante}-${oficial.sets_local}`}
+                    </span>
+                  ) : wo ? (
                     <span
                       className={`chip ${soyAusente ? "bg-fondo text-texto-suave" : "bg-primario text-white dark:text-fondo"}`}
                     >
                       W.O. {wo.con_sancion ? "con sanción" : "sin sanción"}
                     </span>
-                  )}
-                  {enviado && !wo && (
-                    <span className="chip bg-primario text-white dark:text-fondo">
-                      ✓ Resultado enviado
-                    </span>
+                  ) : (
+                    enviado && (
+                      <span className="chip bg-primario text-white dark:text-fondo">
+                        ✓ Resultado enviado
+                      </span>
+                    )
                   )}
                   <span
                     className={`chip ${local ? "bg-acento-suave text-acento" : "bg-fondo text-texto-suave"}`}
@@ -97,7 +121,12 @@ export default async function Partidos() {
                 </div>
               </div>
 
-              {wo ? (
+              {oficial ? (
+                <p className="text-sm text-texto-suave">
+                  Resultado oficial de la liga: {formatearSets(oficial.sets)}
+                  {enviado ? " · También enviaste tu resultado." : ""}
+                </p>
+              ) : wo ? (
                 <p className={`text-sm ${soyAusente ? "text-texto-suave" : "text-primario"}`}>
                   {describirWalkover({
                     ausente: soyAusente ? jugador.nombre : rival.nombre,
@@ -110,8 +139,8 @@ export default async function Partidos() {
                 </p>
               ) : enviado ? (
                 <p className="text-sm text-primario">
-                  Resultado registrado el {formatearDia(ultimoEnvio!)}. Si fue una prueba o te
-                  equivocaste, reinicia el partido.
+                  Resultado enviado el {formatearDia(ultimoEnvio!)}, pendiente de que la liga lo
+                  publique. Si fue una prueba o te equivocaste, reinicia el partido.
                 </p>
               ) : (
                 local && (
@@ -124,41 +153,45 @@ export default async function Partidos() {
               )}
 
               <div className="flex flex-wrap gap-2">
-                {wo ? (
+                {local && !cerrado && (
+                  <Link
+                    href={`/partidos/${p.id}/proponer`}
+                    className={propuesto || enviado ? "boton-secundario" : "boton-acento"}
+                  >
+                    {propuesto ? "Volver a proponer" : "Proponer horario"}
+                  </Link>
+                )}
+                {cerrado ? (
+                  enviado && (
+                    <Link href={`/partidos/${p.id}/resultado`} className="boton-secundario">
+                      Ver lo que enviaste
+                    </Link>
+                  )
+                ) : (
+                  <Link
+                    href={`/partidos/${p.id}/resultado`}
+                    className={enviado ? "boton-secundario" : "boton-primario"}
+                  >
+                    {enviado ? "Ver o reenviar resultado" : "Enviar resultado"}
+                  </Link>
+                )}
+                {enviado && !cerrado && <BotonReiniciar partidoId={p.id} />}
+                {wo && (
                   <>
                     <Link href={`/partidos/${p.id}/wo`} className="boton-secundario">
                       Editar W.O.
                     </Link>
                     <BotonQuitarWo partidoId={p.id} />
                   </>
-                ) : (
-                  <>
-                    {local && (
-                      <Link
-                        href={`/partidos/${p.id}/proponer`}
-                        className={propuesto || enviado ? "boton-secundario" : "boton-acento"}
-                      >
-                        {propuesto ? "Volver a proponer" : "Proponer horario"}
-                      </Link>
-                    )}
-                    <Link
-                      href={`/partidos/${p.id}/resultado`}
-                      className={enviado ? "boton-secundario" : "boton-primario"}
-                    >
-                      {enviado ? "Ver o reenviar resultado" : "Enviar resultado"}
-                    </Link>
-                    {enviado ? (
-                      <BotonReiniciar partidoId={p.id} />
-                    ) : (
-                      <Link
-                        href={`/partidos/${p.id}/wo`}
-                        className="boton-secundario text-texto-suave"
-                        title="La liga dio el partido por W.O. (lesión, baja…)"
-                      >
-                        Marcar W.O.
-                      </Link>
-                    )}
-                  </>
+                )}
+                {!cerrado && !enviado && (
+                  <Link
+                    href={`/partidos/${p.id}/wo`}
+                    className="boton-secundario text-texto-suave"
+                    title="La liga dio el partido por W.O. (lesión, baja…)"
+                  >
+                    Marcar W.O.
+                  </Link>
                 )}
               </div>
 

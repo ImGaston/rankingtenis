@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { Fase, Jugador, Partido, Walkover } from "@/lib/dominio/tipos";
+import type { Fase, Jugador, Partido, ResultadoOficial, Walkover } from "@/lib/dominio/tipos";
 import { crearClienteServidor } from "@/lib/supabase/server";
 
 export interface PartidoDetalle extends Partido {
@@ -18,6 +18,8 @@ export interface PartidoDetalle extends Partido {
     Walkover,
     "id" | "ausente_id" | "motivo" | "con_sancion" | "nota" | "creado_at"
   > | null;
+  /** PostgREST devuelve objeto en relaciones uno a uno; por si acaso se admite array. */
+  resultados_oficiales: ResultadoOficial | ResultadoOficial[] | null;
 }
 
 const SELECT = `
@@ -27,7 +29,8 @@ const SELECT = `
   visitante:jugadores!partidos_visitante_id_fkey ( id, nombre, nombre_normalizado, telefono, email ),
   propuestas_horario ( id, creado_at, usuario_id ),
   resultados_enviados ( id, creado_at, usuario_id ),
-  walkover:walkovers ( id, ausente_id, motivo, con_sancion, nota, creado_at )
+  walkover:walkovers ( id, ausente_id, motivo, con_sancion, nota, creado_at ),
+  resultados_oficiales ( partido_id, ganador_id, sets, sets_local, sets_visitante, actualizado_at )
 `;
 
 /**
@@ -80,4 +83,11 @@ export function estaCerrado(partido: PartidoDetalle): boolean {
 
 export function nombreFase(fase: Pick<Fase, "numero">): string {
   return `${fase.numero}ª fase`;
+}
+
+/** Resultado oficial del partido, si la liga ya lo comunicó. */
+export function resultadoOficialDe(partido: PartidoDetalle): ResultadoOficial | null {
+  const r = partido.resultados_oficiales;
+  if (!r) return null;
+  return Array.isArray(r) ? (r[0] ?? null) : r;
 }

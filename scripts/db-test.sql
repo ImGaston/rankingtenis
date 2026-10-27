@@ -2,6 +2,7 @@
 -- Se ejecuta con scripts/db-local.sh test. Cualquier assert fallido corta.
 \set ON_ERROR_STOP on
 \set payload `cat agente/ejemplos/fase2.json`
+\set resultados `cat agente/ejemplos/resultados-fase2.json`
 
 -- Usuarios de prueba (dispara handle_new_user)
 insert into auth.users (id, email, raw_user_meta_data) values
@@ -181,5 +182,129 @@ do $$ begin
   assert (select jugador_id from public.usuarios where id = '00000000-0000-0000-0000-000000000003') is not null, 'aprobado';
 end $$;
 reset role;
+
+
+-- Resultados oficiales, clasificación y ranking (0006) ------------------------
+do $$ begin
+  assert sets_a_texto('[[6,1],[1,6],[6,2]]') = '6-1 1-6 6-2', 'sets a texto';
+  assert sets_equivalentes('[[6,1],[1,6],[1,0]]', '[[6,1],[1,6],[10,7]]'), 'super tie-break 1-0 equivale a 10-7';
+  assert not sets_equivalentes('[[6,1],[1,6],[1,0]]', '[[6,1],[1,6],[7,10]]'), 'tercer set con otro ganador';
+  assert not sets_equivalentes('[[6,0],[6,0]]', '[[6,1],[6,0]]'), 'sets distintos';
+  assert not sets_equivalentes('[[6,0],[6,0]]', '[[6,0],[6,0],[1,0]]'), 'distinto número de sets';
+end $$;
+
+insert into cargas select 'resultados', cargar_ingesta(:'resultados'::jsonb);
+select r as carga_resultados from cargas where nombre = 'resultados';
+
+do $$
+declare
+  r jsonb := (select c.r from cargas c where c.nombre = 'resultados');
+  v_yo uuid := (select jugador_id from public.usuarios where id = '00000000-0000-0000-0000-000000000002');
+  v_partido uuid := (select id from public.partidos where id_partido = '108999');
+  v_ingesta uuid := (r ->> 'ingesta_id')::uuid;
+begin
+  assert r ->> 'estado' = 'ok', 'resultados ok';
+  assert (r -> 'resumen' ->> 'resultados_nuevos')::int = 8, 'ocho resultados nuevos';
+  assert (r -> 'resumen' ->> 'resultados_sin_partido')::int = 1, 'uno sin partido (jugador inexistente)';
+  assert (r -> 'resumen' ->> 'resultados_discrepantes')::int = 1, 'una discrepancia con lo enviado por el jugador';
+  assert (r -> 'resumen' ->> 'clasificacion_filas')::int = 8, 'clasificación de 8';
+  assert (r -> 'resumen' ->> 'ranking_posiciones')::int = 6, 'ranking general 4 + femenino 2';
+  assert (r -> 'resumen' ->> 'jugadores_creados_sin_contacto')::int = 0, 'nadie nuevo: los nombres cruzan aunque cambie el acento (RUÍZ)';
+  assert (r -> 'resumen' ->> 'partidos_nuevos')::int = 0 and (r -> 'resumen' ->> 'grupos')::int = 0, 'no toca el calendario';
+  assert (select count(*) from jsonb_array_elements(r -> 'avisos') a where a ->> 'tipo' = 'partido_no_encontrado') = 1, 'aviso partido_no_encontrado';
+  assert (select count(*) from jsonb_array_elements(r -> 'avisos') a
+          where a ->> 'tipo' = 'resultado_discrepante' and a ->> 'id_partido' = '108999'
+            and a ->> 'detalle' like 'Enviado desde la app: 6-0 6-0 %Liga: 6-1 1-6 0-1 %') = 1, 'aviso resultado_discrepante con detalle';
+  -- el oficial manda: Gaston perdió 1-2 aunque él envió 6-0 6-0
+  assert (select ganador_id from public.resultados_oficiales where partido_id = v_partido) <> v_yo, 'ganador oficial es el visitante';
+  assert (select sets_local || '-' || sets_visitante from public.resultados_oficiales where partido_id = v_partido) = '1-2', 'sets 1-2';
+  assert (select count(*) from public.resultados_oficiales where ingesta_id = v_ingesta) = 8, 'ingesta_id en los resultados';
+  assert (select posicion from public.clasificacion_grupo where jugador_id = v_yo) = 6, 'Gaston sexto en el grupo';
+  assert (select count(*) from public.ranking_general where tipo = 'general') = 4 and (select count(*) from public.ranking_general where tipo = 'femenino') = 2, 'ranking por tipo';
+  assert (select resumen ->> 'resultados_nuevos' from public.ingestas where id = v_ingesta) = '8', 'resumen guardado en la ingesta';
+end $$;
+
+-- Idempotencia de resultados: duplicada por id; recarga con otro id no cambia nada
+insert into cargas select 'resultados_dup', cargar_ingesta(:'resultados'::jsonb);
+insert into cargas select 'resultados_bis', cargar_ingesta((:'resultados'::jsonb) || '{"gmail_message_id":"otro-resultados"}'::jsonb);
+do $$
+declare
+  d jsonb := (select c.r from cargas c where c.nombre = 'resultados_dup');
+  b jsonb := (select c.r from cargas c where c.nombre = 'resultados_bis');
+begin
+  assert d ->> 'estado' = 'duplicada', 'resultados duplicada';
+  assert b ->> 'estado' = 'ok', 'recarga ok';
+  assert (b -> 'resumen' ->> 'resultados_nuevos')::int = 0 and (b -> 'resumen' ->> 'resultados_modificados')::int = 0, 'recarga sin cambios en resultados';
+  assert (b -> 'resumen' ->> 'clasificacion_filas')::int = 8, 'la clasificación se reemplaza';
+  assert (select count(*) from public.clasificacion_grupo) = 8, 'siguen 8 filas de clasificación';
+  assert (select count(*) from public.ranking_general) = 6, 'siguen 6 en el ranking';
+  assert (select count(*) from public.resultados_oficiales) = 8, 'siguen 8 resultados';
+end $$;
+
+-- Corrección de un resultado por la liga: cuenta como modificado
+insert into cargas select 'resultados_corr', cargar_ingesta(
+  '{"gmail_message_id":"correccion","temporada":"2026-27","resultados":[{"fase":2,"grupo":"H","partidos":[
+     {"id_partido":"108999","vuelta":1,"jornada":1,"local":"ROBERTO GASTÓN CORBALÁN LUGO","visitante":"JOSÉ VILLÉN ALTAMIRANO",
+      "ganador":"local","sets":[[6,0],[6,0]]}]}]}'::jsonb);
+do $$
+declare c jsonb := (select x.r from cargas x where x.nombre = 'resultados_corr');
+begin
+  assert (c -> 'resumen' ->> 'resultados_modificados')::int = 1, 'resultado corregido';
+  assert (c -> 'resumen' ->> 'resultados_discrepantes')::int = 0, 'ahora coincide con lo enviado';
+  assert (select sets_local from public.resultados_oficiales ro join public.partidos p on p.id = ro.partido_id where p.id_partido = '108999') = 2, 'sets recalculados desde el array';
+end $$;
+
+-- Resultados de un grupo sin calendario: aviso y nada cargado
+insert into cargas select 'resultados_sin_grupo', cargar_ingesta(
+  '{"gmail_message_id":"sin-grupo","temporada":"2026-27","resultados":[{"fase":9,"grupo":"Z","partidos":[]}]}'::jsonb);
+do $$
+declare c jsonb := (select x.r from cargas x where x.nombre = 'resultados_sin_grupo');
+begin
+  assert (select count(*) from jsonb_array_elements(c -> 'avisos') a where a ->> 'tipo' = 'grupo_no_encontrado') = 1, 'aviso grupo_no_encontrado';
+  assert (select count(*) from public.fases where numero = 9) = 0, 'no crea fases';
+end $$;
+
+-- RLS de las tablas nuevas
+insert into auth.users (id, email) values ('00000000-0000-0000-0000-000000000004', 'cuarto@example.com');
+set role authenticated;
+-- Jugador vinculado del grupo H
+select set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-000000000002","role":"authenticated"}', false);
+do $$ begin
+  assert (select count(*) from public.resultados_oficiales) = 8, 'veo los resultados oficiales de mi grupo';
+  assert (select count(*) from public.clasificacion_grupo) = 8, 'veo la clasificación de mi grupo';
+  assert (select count(*) from listar_ranking()) = 6, 'veo el ranking general con nombres';
+  assert (select nombre from listar_ranking() where tipo = 'general' and posicion = 1) = 'ANA PRUEBA EJEMPLO 01', 'nombre de fuera de mi grupo vía RPC';
+  assert (select count(*) from public.jugadores) = 8, 'pero jugadores sigue limitado a mi grupo';
+end $$;
+-- Usuario sin vínculo: nada
+select set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-000000000004","role":"authenticated"}', false);
+do $$ begin
+  assert (select count(*) from public.resultados_oficiales) = 0, 'sin vínculo: 0 resultados';
+  assert (select count(*) from public.clasificacion_grupo) = 0, 'sin vínculo: 0 clasificación';
+  assert (select count(*) from public.ranking_general) = 0, 'sin vínculo: 0 ranking';
+  assert (select count(*) from listar_ranking()) = 0, 'sin vínculo: ranking vacío';
+end $$;
+-- Nadie escribe en las tablas nuevas desde la app
+select set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-000000000002","role":"authenticated"}', false);
+do $$ begin
+  begin
+    insert into public.clasificacion_grupo (grupo_id, jugador_id, posicion)
+    select grupo_id, jugador_id, 1 from public.grupo_jugadores limit 1;
+    raise exception 'no debería poder escribir la clasificación';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+reset role;
+
+-- Despublicar la fase oculta también los resultados
+update public.fases set publicada = false where numero = 2;
+set role authenticated;
+select set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-000000000002","role":"authenticated"}', false);
+do $$ begin
+  assert (select count(*) from public.resultados_oficiales) = 0, 'fase despublicada: 0 resultados';
+  assert (select count(*) from public.clasificacion_grupo) = 0, 'fase despublicada: 0 clasificación';
+end $$;
+reset role;
+update public.fases set publicada = true where numero = 2;
 
 \echo TODAS LAS PRUEBAS SQL PASARON

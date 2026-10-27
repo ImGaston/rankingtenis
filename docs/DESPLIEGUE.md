@@ -16,6 +16,9 @@ Supabase y GitHub; el resto los hace Gaston.
 Yo entonces aplico `supabase/migrations/*.sql` en orden con el MCP de Supabase (`apply_migration`), reviso
 `get_advisors` (seguridad y rendimiento) y hago una carga de prueba con `agente/ejemplos/fase2.json`.
 
+Las migraciones posteriores (p. ej. `0006_resultados.sql`: resultados oficiales, clasificación y ranking) se
+pegan en el SQL Editor del dashboard en orden; `cargar_ingesta` se redefine entera en cada una.
+
 Antes de aplicar `0004_semilla.sql`, confirmar que el email admin es el correcto (hoy:
 `corbalan.gaston@gmail.com`). Añadir otro: `insert into public.admins_semilla values ('otro@mail.com');`.
 
@@ -56,7 +59,8 @@ El mail de la liga llega a la casilla personal, pero el conector de Gmail de Cla
 
 ## 5. Agente de ingesta (Claude + Gaston)
 
-El skill está en `.claude/skills/ingesta-ranking/SKILL.md`. Se ejecuta de dos formas:
+El skill está en `.claude/skills/ingesta-ranking/SKILL.md` y el brief operativo (acceso por REST, rutina,
+qué se carga y qué no, informe) en `agente/BRIEF.md`. Se ejecuta de dos formas:
 
 - **Tarea programada** (semanal, p. ej. martes 08:30 Europe/Madrid), sesión nueva por corrida con los
   conectores **Gmail** y **Supabase**. Prompt:

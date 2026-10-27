@@ -11,6 +11,12 @@ const ETIQUETAS: Record<string, string> = {
   grupos: "grupos",
   partidos_nuevos: "partidos nuevos",
   partidos_modificados: "partidos modificados",
+  resultados_nuevos: "resultados nuevos",
+  resultados_modificados: "resultados corregidos",
+  resultados_sin_partido: "resultados sin partido",
+  resultados_discrepantes: "discrepancias con la app",
+  clasificacion_filas: "filas de clasificación",
+  ranking_posiciones: "posiciones de ranking",
 };
 
 export default async function AdminIngestas() {
@@ -46,12 +52,14 @@ export default async function AdminIngestas() {
             <p className="text-sm text-texto-suave">Archivos: {i.archivos.join(", ")}</p>
           )}
           <dl className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-            {Object.entries(i.resumen).map(([k, v]) => (
-              <div key={k}>
-                <dt className="inline text-texto-suave">{ETIQUETAS[k] ?? k}: </dt>
-                <dd className="inline font-medium">{v}</dd>
-              </div>
-            ))}
+            {Object.entries(i.resumen)
+              .filter(([, v]) => v !== 0)
+              .map(([k, v]) => (
+                <div key={k}>
+                  <dt className="inline text-texto-suave">{ETIQUETAS[k] ?? k}: </dt>
+                  <dd className="inline font-medium">{v}</dd>
+                </div>
+              ))}
           </dl>
           {i.avisos.length > 0 && (
             <details>

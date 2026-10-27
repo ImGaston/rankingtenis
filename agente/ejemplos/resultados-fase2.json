@@ -1,0 +1,297 @@
+{
+  "origen": "manual",
+  "gmail_message_id": "ejemplo-resultados-fase2-grupoH",
+  "asunto_mail": "RANKING DE TENIS - 2ª FASE - RESULTADOS",
+  "recibido_at": "2026-11-10T10:00:00Z",
+  "archivos": ["RANKING DE TENIS 2ª FASE GRUPO H.pdf", "RANKING TENIS GENERAL FASE 1.pdf"],
+  "temporada": "2026-27",
+  "resultados": [
+    {
+      "fase": 2,
+      "grupo": "H",
+      "clasificacion": [
+        {
+          "posicion": 1,
+          "nombre": "JAIME CASTILLO MARTÍNEZ",
+          "j": 2,
+          "g": 2,
+          "e": 0,
+          "p": 0,
+          "gf": 4,
+          "gc": 0,
+          "ps": 0,
+          "pt": 4,
+          "s": null,
+          "np": 0
+        },
+        {
+          "posicion": 2,
+          "nombre": "JUAN JOSÉ RUIZ VÁZQUEZ",
+          "j": 2,
+          "g": 2,
+          "e": 0,
+          "p": 0,
+          "gf": 4,
+          "gc": 1,
+          "ps": 0,
+          "pt": 4,
+          "s": null,
+          "np": 0
+        },
+        {
+          "posicion": 3,
+          "nombre": "JOSÉ VILLÉN ALTAMIRANO",
+          "j": 2,
+          "g": 1,
+          "e": 0,
+          "p": 1,
+          "gf": 2,
+          "gc": 3,
+          "ps": 0,
+          "pt": 2,
+          "s": null,
+          "np": 0
+        },
+        {
+          "posicion": 4,
+          "nombre": "JESÚS RODRÍGUEZ MORENO",
+          "j": 2,
+          "g": 1,
+          "e": 0,
+          "p": 1,
+          "gf": 2,
+          "gc": 2,
+          "ps": 0,
+          "pt": 2,
+          "s": null,
+          "np": 0
+        },
+        {
+          "posicion": 5,
+          "nombre": "FERNANDO ARROYO RUBIO",
+          "j": 2,
+          "g": 1,
+          "e": 0,
+          "p": 1,
+          "gf": 3,
+          "gc": 2,
+          "ps": 0,
+          "pt": 2,
+          "s": null,
+          "np": 0
+        },
+        {
+          "posicion": 6,
+          "nombre": "ROBERTO GASTÓN CORBALÁN LUGO",
+          "j": 2,
+          "g": 1,
+          "e": 0,
+          "p": 1,
+          "gf": 3,
+          "gc": 2,
+          "ps": 0,
+          "pt": 2,
+          "s": null,
+          "np": 0
+        },
+        {
+          "posicion": 7,
+          "nombre": "JAVIER BAEZA ESCUDERO",
+          "j": 2,
+          "g": 0,
+          "e": 0,
+          "p": 2,
+          "gf": 0,
+          "gc": 4,
+          "ps": 0,
+          "pt": 0,
+          "s": null,
+          "np": 0
+        },
+        {
+          "posicion": 8,
+          "nombre": "IGNACIO GREGORIO SALES",
+          "j": 2,
+          "g": 0,
+          "e": 0,
+          "p": 2,
+          "gf": 1,
+          "gc": 4,
+          "ps": 0,
+          "pt": 0,
+          "s": null,
+          "np": 0
+        }
+      ],
+      "partidos": [
+        {
+          "vuelta": 1,
+          "jornada": 1,
+          "local": "ROBERTO GASTÓN CORBALÁN LUGO",
+          "visitante": "JOSÉ VILLÉN ALTAMIRANO",
+          "sets_local": 1,
+          "sets_visitante": 2,
+          "ganador": "visitante",
+          "sets": [
+            [6, 1],
+            [1, 6],
+            [0, 1]
+          ]
+        },
+        {
+          "vuelta": 1,
+          "jornada": 1,
+          "local": "JAIME CASTILLO MARTÍNEZ",
+          "visitante": "IGNACIO GREGORIO SALES",
+          "sets_local": 2,
+          "sets_visitante": 0,
+          "ganador": "local",
+          "sets": [
+            [6, 2],
+            [6, 3]
+          ]
+        },
+        {
+          "vuelta": 1,
+          "jornada": 1,
+          "local": "JUAN JOSÉ RUÍZ VÁZQUEZ",
+          "visitante": "FERNANDO ARROYO RUBIO",
+          "sets_local": 2,
+          "sets_visitante": 1,
+          "ganador": "local",
+          "sets": [
+            [6, 4],
+            [3, 6],
+            [1, 0]
+          ]
+        },
+        {
+          "vuelta": 1,
+          "jornada": 1,
+          "local": "JAVIER BAEZA ESCUDERO",
+          "visitante": "JESÚS RODRÍGUEZ MORENO",
+          "sets_local": 0,
+          "sets_visitante": 2,
+          "ganador": "visitante",
+          "sets": [
+            [2, 6],
+            [4, 6]
+          ]
+        },
+        {
+          "vuelta": 1,
+          "jornada": 2,
+          "local": "JESÚS RODRÍGUEZ MORENO",
+          "visitante": "ROBERTO GASTÓN CORBALÁN LUGO",
+          "sets_local": 0,
+          "sets_visitante": 2,
+          "ganador": "visitante",
+          "sets": [
+            [4, 6],
+            [5, 7]
+          ]
+        },
+        {
+          "vuelta": 1,
+          "jornada": 2,
+          "local": "JUAN JOSÉ RUIZ VÁZQUEZ",
+          "visitante": "JAVIER BAEZA ESCUDERO",
+          "sets_local": 2,
+          "sets_visitante": 0,
+          "ganador": "local",
+          "sets": [
+            [6, 0],
+            [6, 1]
+          ]
+        },
+        {
+          "vuelta": 1,
+          "jornada": 2,
+          "local": "FERNANDO ARROYO RUBIO",
+          "visitante": "IGNACIO GREGORIO SALES",
+          "sets_local": 2,
+          "sets_visitante": 1,
+          "ganador": "local",
+          "sets": [
+            [6, 7],
+            [6, 2],
+            [1, 0]
+          ]
+        },
+        {
+          "vuelta": 1,
+          "jornada": 2,
+          "local": "JOSÉ VILLÉN ALTAMIRANO",
+          "visitante": "JAIME CASTILLO MARTÍNEZ",
+          "sets_local": 0,
+          "sets_visitante": 2,
+          "ganador": "visitante",
+          "sets": [
+            [3, 6],
+            [2, 6]
+          ]
+        },
+        {
+          "vuelta": 1,
+          "jornada": 3,
+          "local": "JUGADOR INEXISTENTE",
+          "visitante": "JOSÉ VILLÉN ALTAMIRANO",
+          "sets_local": 2,
+          "sets_visitante": 0,
+          "ganador": "local",
+          "sets": [
+            [6, 0],
+            [6, 0]
+          ]
+        }
+      ]
+    }
+  ],
+  "ranking": [
+    {
+      "tipo": "general",
+      "temporada": "2026-27",
+      "fecha_corte": "2026-10-20",
+      "posiciones": [
+        {
+          "posicion": 1,
+          "nombre": "ANA PRUEBA EJEMPLO 01",
+          "puntos": 1000,
+          "por_fase": { "1": 1000 }
+        },
+        {
+          "posicion": 2,
+          "nombre": "LUIS EJEMPLO EJEMPLO 02",
+          "puntos": 900,
+          "por_fase": { "1": 900 }
+        },
+        {
+          "posicion": 3,
+          "nombre": "ROBERTO GASTÓN CORBALÁN LUGO",
+          "puntos": 100,
+          "por_fase": { "1": 100 }
+        },
+        { "posicion": 4, "nombre": "JOSÉ VILLÉN ALTAMIRANO", "puntos": 80, "por_fase": { "1": 80 } }
+      ]
+    },
+    {
+      "tipo": "femenino",
+      "temporada": "2026-27",
+      "fecha_corte": "2026-10-20",
+      "posiciones": [
+        {
+          "posicion": 1,
+          "nombre": "ANA PRUEBA EJEMPLO 01",
+          "puntos": 1000,
+          "por_fase": { "1": 1000 }
+        },
+        {
+          "posicion": 2,
+          "nombre": "MARTA FICTICIO EJEMPLO 03",
+          "puntos": 500,
+          "por_fase": { "1": 500 }
+        }
+      ]
+    }
+  ]
+}
