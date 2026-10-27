@@ -95,3 +95,17 @@ export interface Ingesta {
   avisos: Array<Record<string, string>>;
   creado_at: string;
 }
+
+export type MotivoWalkover = "lesion" | "baja" | "incomparecencia" | "otro";
+
+/** W.O. decidido por la liga: el ausente pierde 0-6 0-6, con o sin sanción. */
+export interface Walkover {
+  id: string;
+  partido_id: string;
+  usuario_id: string;
+  ausente_id: string;
+  motivo: MotivoWalkover;
+  con_sancion: boolean;
+  nota: string | null;
+  creado_at: string;
+}

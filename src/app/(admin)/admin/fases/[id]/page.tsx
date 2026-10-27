@@ -20,6 +20,7 @@ interface GrupoDetalle {
     visitante: { nombre: string };
     resultados_enviados: { id: string }[];
     propuestas_horario: { id: string }[];
+    walkovers: { id: string; con_sancion: boolean }[] | { id: string; con_sancion: boolean } | null;
   }[];
 }
 
@@ -36,7 +37,7 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
          partidos ( id, id_partido, jornada, semana,
            local:jugadores!partidos_local_id_fkey ( nombre ),
            visitante:jugadores!partidos_visitante_id_fkey ( nombre ),
-           resultados_enviados ( id ), propuestas_horario ( id ) )`,
+           resultados_enviados ( id ), propuestas_horario ( id ), walkovers ( id, con_sancion ) )`,
       )
       .eq("fase_id", id)
       .order("letra"),
@@ -156,11 +157,13 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
                         <td className="py-1 pr-3">{formatearNombre(p.visitante.nombre)}</td>
                         <td className="py-1 pr-3">{p.id_partido}</td>
                         <td className="py-1 text-texto-suave">
-                          {p.resultados_enviados.length > 0
-                            ? "resultado"
-                            : p.propuestas_horario.length > 0
-                              ? "propuesto"
-                              : ""}
+                          {(() => {
+                            const wo = Array.isArray(p.walkovers) ? p.walkovers[0] : p.walkovers;
+                            if (wo) return `W.O. ${wo.con_sancion ? "con sanción" : "sin sanción"}`;
+                            if (p.resultados_enviados.length > 0) return "resultado";
+                            if (p.propuestas_horario.length > 0) return "propuesto";
+                            return "";
+                          })()}
                         </td>
                       </tr>
                     ))}

@@ -113,11 +113,55 @@ begin
   end;
 end $$;
 
+-- W.O.: un jugador del partido lo registra; fuera del partido, no -----------
+do $$
+declare v_partido uuid; v_otro uuid; v_yo uuid := mi_jugador_id(); v_rival uuid; v_tercero uuid;
+begin
+  select id into v_partido from public.partidos where visitante_id = v_yo order by jornada limit 1;
+  select case when local_id = v_yo then visitante_id else local_id end into v_rival
+  from public.partidos where id = v_partido;
+  select id into v_tercero from public.jugadores where id not in (v_yo, v_rival) limit 1;
+  -- el rival se lesiona: W.O. sin sanción a mi favor
+  insert into public.walkovers (partido_id, usuario_id, ausente_id, motivo, con_sancion, nota)
+  values (v_partido, auth.uid(), v_rival, 'lesion', false, 'Aviso de la liga');
+  assert (select count(*) from public.walkovers) = 1, 'veo mi W.O.';
+  -- dos W.O. para el mismo partido: no
+  begin
+    insert into public.walkovers (partido_id, usuario_id, ausente_id, motivo) values (v_partido, auth.uid(), v_yo, 'baja');
+    raise exception 'no debería admitir dos W.O. en el mismo partido';
+  exception when unique_violation then null;
+  end;
+  -- corregir el W.O. registrado: sí
+  update public.walkovers set motivo = 'baja', con_sancion = true where partido_id = v_partido;
+  assert (select motivo from public.walkovers where partido_id = v_partido) = 'baja', 'W.O. corregido';
+  -- ausente que no juega el partido: lo corta el trigger
+  begin
+    update public.walkovers set ausente_id = v_tercero where partido_id = v_partido;
+    raise exception 'no debería admitir un ausente ajeno al partido';
+  exception when raise_exception then
+    assert sqlerrm = 'El jugador ausente no juega este partido', sqlerrm;
+  end;
+  -- W.O. en un partido ajeno: lo corta la RLS
+  select id into v_otro from public.partidos where v_yo not in (local_id, visitante_id) limit 1;
+  begin
+    insert into public.walkovers (partido_id, usuario_id, ausente_id, motivo)
+    values (v_otro, auth.uid(), (select local_id from public.partidos where id = v_otro), 'lesion');
+    raise exception 'no debería poder marcar W.O. en partido ajeno';
+  exception when insufficient_privilege then null;
+  end;
+  -- quitar el W.O.: sí (y lo vuelvo a dejar para las pruebas siguientes)
+  delete from public.walkovers where partido_id = v_partido;
+  assert (select count(*) from public.walkovers) = 0, 'W.O. quitado';
+  insert into public.walkovers (partido_id, usuario_id, ausente_id, motivo)
+  values (v_partido, auth.uid(), v_rival, 'lesion');
+end $$;
+
 -- Usuario sin vínculo: no ve nada, pero puede listar nombres y solicitar
 select set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-000000000003","role":"authenticated"}', false);
 do $$ begin
   assert (select count(*) from public.partidos) = 0, 'sin vínculo: 0 partidos';
   assert (select count(*) from public.jugadores) = 0, 'sin vínculo: 0 jugadores';
+  assert (select count(*) from public.walkovers) = 0, 'sin vínculo: 0 W.O.';
   assert (select count(*) from listar_jugadores_fase()) = 8, 'lista 8 nombres de la fase actual';
   perform solicitar_vinculo((select id from listar_jugadores_fase() limit 1));
   assert (select estado_vinculo from public.usuarios where id = auth.uid()) = 'pendiente', 'pendiente';
@@ -130,6 +174,7 @@ do $$ begin
   assert (select count(*) from public.jugadores) = 80, 'admin ve 80';
   assert (select count(*) from public.ingestas) = 2, 'admin ve ingestas';
   assert (select count(*) from public.usuarios) = 3, 'admin ve usuarios';
+  assert (select count(*) from public.walkovers) = 1, 'admin ve el W.O.';
   -- aprueba el vínculo pendiente
   update public.usuarios set jugador_id = jugador_solicitado_id, estado_vinculo = 'aprobado'
   where id = '00000000-0000-0000-0000-000000000003';

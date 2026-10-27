@@ -185,8 +185,9 @@ export function FormularioResultado(p: Props) {
             className="mt-1 accent-primario"
           />
           <span>
-            Resultado no estándar (abandono, lesión, W.O.). Se anotan los juegos tal cual y eliges
-            al ganador.
+            Resultado no estándar (abandono o lesión a mitad de partido). Se anotan los juegos tal
+            cual y eliges al ganador. Si la liga dio el partido por W.O., márcalo desde Mis partidos
+            sin enviar mail.
           </span>
         </label>
         {!estricto && (

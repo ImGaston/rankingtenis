@@ -148,3 +148,68 @@ export async function reiniciarResultado(
   revalidatePath(`/partidos/${partido.id}/resultado`);
   return { ok: true };
 }
+
+const walkoverSchema = z.object({
+  partidoId: z.string().uuid(),
+  ausente: z.enum(["local", "visitante"]),
+  motivo: z.enum(["lesion", "baja", "incomparecencia", "otro"]),
+  conSancion: z.boolean(),
+  nota: z.string().max(1000).optional(),
+});
+
+/**
+ * Registra un W.O. decidido por la liga (el aviso solo llega a los jugadores
+ * del grupo, así que lo marca uno de los dos). El partido deja de aparecer
+ * como pendiente y no hace falta mandar mail de resultado. Si ya había uno,
+ * se sustituye.
+ */
+export async function marcarWalkover(formData: FormData) {
+  const { usuario, jugador } = await exigirJugador();
+  const datos = walkoverSchema.parse({
+    partidoId: formData.get("partidoId"),
+    ausente: formData.get("ausente"),
+    motivo: formData.get("motivo"),
+    conSancion: formData.get("conSancion") === "on",
+    nota: formData.get("nota") ?? undefined,
+  });
+  const partido = await obtenerPartido(datos.partidoId);
+  if (!partido) throw new Error("Partido no encontrado");
+  if (partido.local_id !== jugador.id && partido.visitante_id !== jugador.id) {
+    throw new Error("No juegas este partido");
+  }
+  const supabase = await crearClienteServidor();
+  const { error } = await supabase.from("walkovers").upsert(
+    {
+      partido_id: partido.id,
+      usuario_id: usuario.id,
+      ausente_id: datos.ausente === "local" ? partido.local_id : partido.visitante_id,
+      motivo: datos.motivo,
+      con_sancion: datos.conSancion,
+      nota: datos.nota?.trim() || null,
+    },
+    { onConflict: "partido_id" },
+  );
+  if (error) throw new Error(`No se pudo registrar el W.O.: ${error.message}`);
+  revalidatePath("/partidos");
+  revalidatePath(`/partidos/${partido.id}/wo`);
+  redirect("/partidos");
+}
+
+/** Quita el W.O. y el partido vuelve a quedar pendiente. */
+export async function quitarWalkover(
+  partidoId: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  await exigirJugador();
+  const id = z.string().uuid().parse(partidoId);
+  const supabase = await crearClienteServidor();
+  // La RLS solo deja borrar a los dos jugadores del partido o al admin.
+  const { error, count } = await supabase
+    .from("walkovers")
+    .delete({ count: "exact" })
+    .eq("partido_id", id);
+  if (error) return { ok: false, error: error.message };
+  if (!count) return { ok: false, error: "No había W.O. o no puedes quitarlo" };
+  revalidatePath("/partidos");
+  revalidatePath(`/partidos/${id}/wo`);
+  return { ok: true };
+}

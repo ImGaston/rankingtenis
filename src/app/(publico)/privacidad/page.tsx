@@ -25,8 +25,8 @@ export default function Privacidad() {
             Tu dirección de correo de Google, para reconocerte en esa lista. No leemos tu correo.
           </li>
           <li>
-            Las propuestas de horario y los resultados que generas desde la app, para que veas qué
-            te falta.
+            Las propuestas de horario, los resultados y los W.O. que registras desde la app, para
+            que veas qué te falta.
           </li>
         </ul>
         <h2 className="text-lg font-semibold text-texto">Quién lo ve</h2>
