@@ -4,6 +4,11 @@
 # con auth.users y auth.uid(), esquema extensions y los roles anon,
 # authenticated y service_role.
 #
+# Necesita los binarios de PostgreSQL (initdb, pg_ctl, psql):
+#   macOS:  brew install postgresql@17
+#   Debian: apt-get install postgresql
+# Los busca solo; si están en otro sitio, exportar PGBIN=/ruta/a/bin.
+#
 #   scripts/db-local.sh start   # inicia el clúster en .pgdata (puerto 54329)
 #   scripts/db-local.sh reset   # recrea la base y aplica las migraciones
 #   scripts/db-local.sh test    # start + reset + scripts/db-test.sql
@@ -11,11 +16,29 @@
 #   scripts/db-local.sh stop
 set -euo pipefail
 cd "$(dirname "$0")/.."
-PGBIN=${PGBIN:-$(ls -d /usr/lib/postgresql/*/bin | sort -V | tail -1)}
+buscar_pgbin() {
+  local d
+  # pg_config en el PATH (Homebrew con postgresql enlazado, Postgres.app, etc.)
+  if command -v pg_config >/dev/null 2>&1; then pg_config --bindir; return; fi
+  # Homebrew (Apple Silicon e Intel), Postgres.app y Debian/Ubuntu, de más nueva a más vieja
+  for d in /opt/homebrew/opt/postgresql@*/bin /usr/local/opt/postgresql@*/bin \
+           /Applications/Postgres.app/Contents/Versions/*/bin /usr/lib/postgresql/*/bin; do
+    if [ -x "$d/initdb" ]; then echo "$d"; fi
+  done | sort -V | tail -1
+  return 0
+}
+PGBIN=${PGBIN:-$(buscar_pgbin)}
+if [ -z "$PGBIN" ] || [ ! -x "$PGBIN/initdb" ]; then
+  echo "No encuentro PostgreSQL. En macOS: brew install postgresql@17 (o exportar PGBIN=/ruta/a/bin)." >&2
+  exit 1
+fi
 PGDATA=${PGDATA:-$PWD/.pgdata}
 PGPORT=${PGPORT:-54329}
 DB=rankingtenis
-export PGHOST=/tmp PGPORT PGUSER=postgres PGDATABASE=$DB
+export PATH="$PGBIN:$PATH" PGHOST=/tmp PGPORT PGUSER=postgres PGDATABASE=$DB
+# En macOS el servidor aborta ("postmaster became multithreaded") si la locale
+# del entorno no es válida; C existe en todos los sistemas.
+export LC_ALL=C
 
 # El servidor no puede correr como root: si hace falta, se delega al usuario
 # de sistema "postgres" (existe con el paquete postgresql).
@@ -31,7 +54,7 @@ start() {
   if [ ! -f "$PGDATA/PG_VERSION" ]; then
     mkdir -p "$PGDATA"
     [ "$(id -u)" = "0" ] && chown postgres:postgres "$PGDATA"
-    como_pg "$PGBIN/initdb" -D "$PGDATA" -U postgres --auth=trust -E UTF8 --locale=C.UTF-8 >/dev/null
+    como_pg "$PGBIN/initdb" -D "$PGDATA" -U postgres --auth=trust -E UTF8 --locale=C >/dev/null
   fi
   if ! como_pg "$PGBIN/pg_ctl" -D "$PGDATA" status >/dev/null 2>&1; then
     como_pg "$PGBIN/pg_ctl" -D "$PGDATA" -o "-p $PGPORT -k /tmp -c listen_addresses=''" -l "$PGDATA/log" start >/dev/null
