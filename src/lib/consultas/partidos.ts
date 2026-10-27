@@ -1,6 +1,6 @@
 import "server-only";
 
-import type { Fase, Jugador, Partido } from "@/lib/dominio/tipos";
+import type { Fase, Jugador, Partido, ResultadoOficial } from "@/lib/dominio/tipos";
 import { crearClienteServidor } from "@/lib/supabase/server";
 
 export interface PartidoDetalle extends Partido {
@@ -13,6 +13,8 @@ export interface PartidoDetalle extends Partido {
   visitante: Jugador;
   propuestas_horario: { id: string; creado_at: string; usuario_id: string }[];
   resultados_enviados: { id: string; creado_at: string; usuario_id: string }[];
+  /** PostgREST devuelve objeto en relaciones uno a uno; por si acaso se admite array. */
+  resultados_oficiales: ResultadoOficial | ResultadoOficial[] | null;
 }
 
 const SELECT = `
@@ -21,7 +23,8 @@ const SELECT = `
   local:jugadores!partidos_local_id_fkey ( id, nombre, nombre_normalizado, telefono, email ),
   visitante:jugadores!partidos_visitante_id_fkey ( id, nombre, nombre_normalizado, telefono, email ),
   propuestas_horario ( id, creado_at, usuario_id ),
-  resultados_enviados ( id, creado_at, usuario_id )
+  resultados_enviados ( id, creado_at, usuario_id ),
+  resultados_oficiales ( partido_id, ganador_id, sets, sets_local, sets_visitante, actualizado_at )
 `;
 
 /** Partidos del jugador en la fase actual (la RLS ya limita a fases publicadas). */
@@ -57,4 +60,11 @@ export function soyLocal(partido: PartidoDetalle, jugadorId: string): boolean {
 
 export function nombreFase(fase: Pick<Fase, "numero">): string {
   return `${fase.numero}ª fase`;
+}
+
+/** Resultado oficial del partido, si la liga ya lo comunicó. */
+export function resultadoOficialDe(partido: PartidoDetalle): ResultadoOficial | null {
+  const r = partido.resultados_oficiales;
+  if (!r) return null;
+  return Array.isArray(r) ? (r[0] ?? null) : r;
 }

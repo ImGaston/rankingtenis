@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { crearClienteServidor } from "@/lib/supabase/server";
-import type { Fase, Ingesta, Jugador } from "@/lib/dominio/tipos";
+import type {
+  ClasificacionFila,
+  Fase,
+  Ingesta,
+  Jugador,
+  ResultadoOficial,
+} from "@/lib/dominio/tipos";
+import { formatearSets } from "@/lib/dominio/sets";
+import { TablaClasificacion } from "@/componentes/tabla-clasificacion";
 import { formatearNombre, formatearTelefono } from "@/lib/dominio/nombres";
 import { formatearDia } from "@/lib/mensajes/franjas";
 
@@ -20,7 +28,15 @@ interface GrupoDetalle {
     visitante: { nombre: string };
     resultados_enviados: { id: string }[];
     propuestas_horario: { id: string }[];
+    resultados_oficiales: ResultadoOficial | ResultadoOficial[] | null;
   }[];
+  clasificacion_grupo: (ClasificacionFila & { jugador: { id: string; nombre: string } })[];
+}
+
+function oficialDe(p: GrupoDetalle["partidos"][number]): ResultadoOficial | null {
+  const r = p.resultados_oficiales;
+  if (!r) return null;
+  return Array.isArray(r) ? (r[0] ?? null) : r;
 }
 
 export default async function RevisarFase({ params }: { params: Promise<{ id: string }> }) {
@@ -36,7 +52,9 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
          partidos ( id, id_partido, jornada, semana,
            local:jugadores!partidos_local_id_fkey ( nombre ),
            visitante:jugadores!partidos_visitante_id_fkey ( nombre ),
-           resultados_enviados ( id ), propuestas_horario ( id ) )`,
+           resultados_enviados ( id ), propuestas_horario ( id ),
+           resultados_oficiales ( partido_id, ganador_id, sets, sets_local, sets_visitante, actualizado_at ) ),
+         clasificacion_grupo ( *, jugador:jugadores ( id, nombre ) )`,
       )
       .eq("fase_id", id)
       .order("letra"),
@@ -95,12 +113,15 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
         const partidos = [...g.partidos].sort(
           (a, b) => a.jornada - b.jornada || a.id_partido.localeCompare(b.id_partido),
         );
+        const clasificacion = [...g.clasificacion_grupo].sort((a, b) => a.posicion - b.posicion);
+        const conOficial = partidos.filter((p) => oficialDe(p) !== null).length;
         return (
           <section key={g.id} className="tarjeta space-y-4">
             <h2 className="text-lg font-semibold">
               Grupo {g.letra}{" "}
               <span className="text-sm font-normal text-texto-suave">
-                · {jugadores.length} jugadores · {partidos.length} partidos
+                · {jugadores.length} jugadores · {partidos.length} partidos · {conOficial} con
+                resultado oficial
               </span>
             </h2>
             <div className="overflow-x-auto">
@@ -132,6 +153,12 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
               </table>
             </div>
             <details>
+              <summary className="cursor-pointer text-sm text-primario">Ver clasificación</summary>
+              <div className="mt-2">
+                <TablaClasificacion filas={clasificacion} />
+              </div>
+            </details>
+            <details>
               <summary className="cursor-pointer text-sm text-primario">Ver calendario</summary>
               <div className="mt-2 overflow-x-auto">
                 <table className="w-full text-sm">
@@ -142,7 +169,8 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
                       <th className="py-1 pr-3 font-medium">Local</th>
                       <th className="py-1 pr-3 font-medium">Visitante</th>
                       <th className="py-1 pr-3 font-medium">Id</th>
-                      <th className="py-1 font-medium">Estado</th>
+                      <th className="py-1 pr-3 font-medium">Oficial</th>
+                      <th className="py-1 font-medium">App</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -155,6 +183,14 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
                         <td className="py-1 pr-3">{formatearNombre(p.local.nombre)}</td>
                         <td className="py-1 pr-3">{formatearNombre(p.visitante.nombre)}</td>
                         <td className="py-1 pr-3">{p.id_partido}</td>
+                        <td className="py-1 pr-3 whitespace-nowrap">
+                          {(() => {
+                            const r = oficialDe(p);
+                            return r
+                              ? `${r.sets_local}-${r.sets_visitante} (${formatearSets(r.sets)})`
+                              : "";
+                          })()}
+                        </td>
                         <td className="py-1 text-texto-suave">
                           {p.resultados_enviados.length > 0
                             ? "resultado"

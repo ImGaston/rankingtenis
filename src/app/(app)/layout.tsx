@@ -13,6 +13,28 @@ export default async function LayoutApp({ children }: { children: ReactNode }) {
             🎾 Ranking Tenis Rivas
           </Link>
           <nav className="flex items-center gap-3 text-sm">
+            {jugador && (
+              <>
+                <Link
+                  href="/partidos"
+                  className="rounded-md px-2 py-1 text-texto-suave hover:text-texto"
+                >
+                  Partidos
+                </Link>
+                <Link
+                  href="/clasificacion"
+                  className="rounded-md px-2 py-1 text-texto-suave hover:text-texto"
+                >
+                  Clasificación
+                </Link>
+                <Link
+                  href="/ranking"
+                  className="hidden rounded-md px-2 py-1 text-texto-suave hover:text-texto sm:inline"
+                >
+                  Ranking
+                </Link>
+              </>
+            )}
             {usuario.rol === "admin" && (
               <Link
                 href="/admin"

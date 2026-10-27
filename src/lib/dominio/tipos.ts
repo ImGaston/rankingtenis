@@ -84,6 +84,49 @@ export interface ResultadoEnviado {
   creado_at: string;
 }
 
+/** Resultado oficial comunicado por la liga (manda sobre lo enviado desde la app). */
+export interface ResultadoOficial {
+  partido_id: string;
+  ganador_id: string;
+  /** Tal como lo anota la liga: el super tie-break viene como 1-0. */
+  sets: Set[];
+  sets_local: number;
+  sets_visitante: number;
+  actualizado_at: string;
+}
+
+/** Fila de la tabla "Clasificación" del PDF de grupo. */
+export interface ClasificacionFila {
+  grupo_id: string;
+  jugador_id: string;
+  posicion: number;
+  jugados: number;
+  ganados: number;
+  empatados: number;
+  perdidos: number;
+  sets_favor: number;
+  sets_contra: number;
+  puntos_sancion: number;
+  puntos: number;
+  sanciones: number | null;
+  no_presentados: number;
+  actualizado_at: string;
+}
+
+export type TipoRanking = "general" | "femenino";
+
+/** Fila de listar_ranking(): ranking general con nombre, sin datos de contacto. */
+export interface RankingFila {
+  temporada: string;
+  tipo: TipoRanking;
+  posicion: number;
+  jugador_id: string;
+  nombre: string;
+  puntos: number;
+  por_fase: Record<string, number>;
+  fecha_corte: string | null;
+}
+
 export interface Ingesta {
   id: string;
   origen: "agente" | "manual";

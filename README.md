@@ -18,14 +18,15 @@ Next.js 16 (App Router) · Tailwind 4 · Supabase (Postgres, Auth, RLS) · Verce
 
 ```
 src/app/(publico)     landing, privacidad
-src/app/(app)         vincular, partidos, proponer horario, resultado
+src/app/(app)         vincular, partidos, proponer horario, resultado, clasificación, ranking
 src/app/(admin)       fases, usuarios, ingestas
 src/lib/dominio       tipos, nombres, validación de sets
 src/lib/mensajes      WhatsApp, mail de resultado, franjas horarias
 src/lib/consultas     lecturas tipadas con el cliente de servidor
 supabase/migrations   esquema, funciones, RLS, semilla
 scripts/db-local.sh   PostgreSQL local para probar migraciones y RLS (pnpm db:test)
-agente/ejemplos       payload de ejemplo para cargar_ingesta
+agente/ejemplos       payloads de ejemplo para cargar_ingesta (calendario y resultados)
+agente/BRIEF.md       brief operativo del agente de datos
 docs/DESPLIEGUE.md    pasos de puesta en marcha
 ```
 
