@@ -1,0 +1,647 @@
+{
+  "origen": "manual",
+  "gmail_message_id": "ejemplo-fase2-grupoH",
+  "asunto_mail": "RANKING DE TENIS - 2ª FASE",
+  "recibido_at": "2026-10-20T10:00:00Z",
+  "archivos": [
+    "CONTACTOS_RANKING_TENIS_26-27.pdf",
+    "RANKING_TENIS_FASE_2_GRUPO_H.pdf",
+    "RANKING_TENIS_GENERAL_FASE_1.pdf",
+    "HorariosJJDDMMAA_RANKING_TENIS_26-27.pdf"
+  ],
+  "temporada": "2026-27",
+  "contactos": [
+    {
+      "nombre": "SERGIO VALDIVIA YUPANQUI",
+      "telefono": "600000001",
+      "email": "sergio.valdivia.yupanqui@example.com"
+    },
+    {
+      "nombre": "JUAN PABLO CUESTA DIAZ",
+      "telefono": "600000002",
+      "email": "juan.pablo.cuesta.diaz@example.com"
+    },
+    {
+      "nombre": "RAUL OSMA MANZANO",
+      "telefono": "600000003",
+      "email": "raul.osma.manzano@example.com"
+    },
+    {
+      "nombre": "DAVID SANCHEZ LLORENS",
+      "telefono": "600000004",
+      "email": "david.sanchez.llorens@example.com"
+    },
+    {
+      "nombre": "HARRY KILLOUGHERY",
+      "telefono": "600000005",
+      "email": "harry.killoughery@example.com"
+    },
+    {
+      "nombre": "JOSÉ MANUEL SEGOVIA BENITO",
+      "telefono": "600000006",
+      "email": "jose.manuel.segovia.benito@example.com"
+    },
+    {
+      "nombre": "CARLOS RODAS GOMEZ",
+      "telefono": "600000007",
+      "email": "carlos.rodas.gomez@example.com"
+    },
+    {
+      "nombre": "FERNANDO GARCIA RODRIGUEZ",
+      "telefono": "600000008",
+      "email": "fernando.garcia.rodriguez@example.com"
+    },
+    {
+      "nombre": "ENRIQUE FERNÁNDEZ PASTOR",
+      "telefono": "600000009",
+      "email": "enrique.fernandez.pastor@example.com"
+    },
+    {
+      "nombre": "IGNACIO RODRIGUEZ GARCIA-CEBADERA",
+      "telefono": "600000010",
+      "email": "ignacio.rodriguez.garcia.cebadera@example.com"
+    },
+    {
+      "nombre": "ALBERTO OVIEDO MONTES",
+      "telefono": "600000011",
+      "email": "alberto.oviedo.montes@example.com"
+    },
+    {
+      "nombre": "EDUARDO GÓMEZ MESTO",
+      "telefono": "600000012",
+      "email": "eduardo.gomez.mesto@example.com"
+    },
+    {
+      "nombre": "DAVID MARTINEZ ALCAZAR",
+      "telefono": "600000013",
+      "email": "david.martinez.alcazar@example.com"
+    },
+    {
+      "nombre": "JOSE ANTONIO SEPULVEDA MARTINEZ",
+      "telefono": "600000014",
+      "email": "jose.antonio.sepulveda.martinez@example.com"
+    },
+    {
+      "nombre": "RAFAEL NOGUEIRO BUSTAMANTE",
+      "telefono": "600000015",
+      "email": "rafael.nogueiro.bustamante@example.com"
+    },
+    {
+      "nombre": "JAVIER DE MIGUEL DEL VALLE",
+      "telefono": "600000016",
+      "email": "javier.de.miguel.del.valle@example.com"
+    },
+    {
+      "nombre": "JOSE IGNACIO ORTIZ LOPEZ",
+      "telefono": "600000017",
+      "email": "jose.ignacio.ortiz.lopez@example.com"
+    },
+    {
+      "nombre": "ESTEFANÍA LEDESMA GUTIÉRREZ",
+      "telefono": "600000018",
+      "email": "estefania.ledesma.gutierrez@example.com"
+    },
+    {
+      "nombre": "JOSÉ JAVIER RODRÍGUEZ IRAUSQUIN",
+      "telefono": "600000019",
+      "email": "jose.javier.rodriguez.irausquin@example.com"
+    },
+    {
+      "nombre": "MARCOS LÓPEZ CUESTA",
+      "telefono": "600000020",
+      "email": "marcos.lopez.cuesta@example.com"
+    },
+    {
+      "nombre": "JORGE SANZ DE LA CRUZ",
+      "telefono": "600000021",
+      "email": "jorge.sanz.de.la.cruz@example.com"
+    },
+    {
+      "nombre": "ÓSCAR CASAS FRANCO",
+      "telefono": "600000022",
+      "email": "oscar.casas.franco@example.com"
+    },
+    {
+      "nombre": "RICARDO SIMÓN GARRIDO",
+      "telefono": "600000023",
+      "email": "ricardo.simon.garrido@example.com"
+    },
+    {
+      "nombre": "JESÚS ZORITA DÍAZ",
+      "telefono": "600000024",
+      "email": "jesus.zorita.diaz@example.com"
+    },
+    {
+      "nombre": "CARLOS AGUDO BLANCO",
+      "telefono": "600000025",
+      "email": "carlos.agudo.blanco@example.com"
+    },
+    {
+      "nombre": "DAVID GUERRA MARTÍN",
+      "telefono": "600000026",
+      "email": "david.guerra.martin@example.com"
+    },
+    {
+      "nombre": "JORGE JUAN NEVADO GÓMEZ",
+      "telefono": "600000027",
+      "email": "jorge.juan.nevado.gomez@example.com"
+    },
+    {
+      "nombre": "JAVIER LAZARO CADENA",
+      "telefono": "600000028",
+      "email": "javier.lazaro.cadena@example.com"
+    },
+    {
+      "nombre": "GREGORIO ANDRES REDONDO VAQUERIZAS",
+      "telefono": "600000029",
+      "email": "gregorio.andres.redondo.vaquerizas@example.com"
+    },
+    {
+      "nombre": "DANIEL DE LA TORRE BARAJAS",
+      "telefono": "600000030",
+      "email": "daniel.de.la.torre.barajas@example.com"
+    },
+    {
+      "nombre": "SERGIO BAUTISTA IGLESIAS",
+      "telefono": "600000031",
+      "email": "sergio.bautista.iglesias@example.com"
+    },
+    {
+      "nombre": "JERONIMO RUANO JIMENEZ",
+      "telefono": "600000032",
+      "email": "jeronimo.ruano.jimenez@example.com"
+    },
+    {
+      "nombre": "FERNANDO MONTERO SAN JUAN",
+      "telefono": "600000033",
+      "email": "fernando.montero.san.juan@example.com"
+    },
+    {
+      "nombre": "TOMAS MANUEL SALAMERO CARRION",
+      "telefono": "600000034",
+      "email": "tomas.manuel.salamero.carrion@example.com"
+    },
+    {
+      "nombre": "DIEGO MARTÍNEZ BLANCO",
+      "telefono": "600000035",
+      "email": "diego.martinez.blanco@example.com"
+    },
+    {
+      "nombre": "MARTA UGARTE LÓPEZ",
+      "telefono": "600000036",
+      "email": "marta.ugarte.lopez@example.com"
+    },
+    {
+      "nombre": "BORJA DE LA FUENTE MUÑOZ",
+      "telefono": "600000037",
+      "email": "borja.de.la.fuente.munoz@example.com"
+    },
+    {
+      "nombre": "MIGUEL ORTEGA GARCIA-CONDE",
+      "telefono": "600000038",
+      "email": "miguel.ortega.garcia.conde@example.com"
+    },
+    {
+      "nombre": "PEDRO VALDIVIA CONDE",
+      "telefono": "600000039",
+      "email": "pedro.valdivia.conde@example.com"
+    },
+    {
+      "nombre": "JORGE RÁBAGO VILLORIA",
+      "telefono": "600000040",
+      "email": "jorge.rabago.villoria@example.com"
+    },
+    {
+      "nombre": "ALFONSO HERRERA NAVARRO",
+      "telefono": "600000041",
+      "email": "alfonso.herrera.navarro@example.com"
+    },
+    {
+      "nombre": "JAVIER BARRIOS DOMÍNGUEZ",
+      "telefono": "600000042",
+      "email": "javier.barrios.dominguez@example.com"
+    },
+    {
+      "nombre": "IDAIRA MORENO AQUINO",
+      "telefono": "600000043",
+      "email": "idaira.moreno.aquino@example.com"
+    },
+    {
+      "nombre": "CARLOS DOMINGO GORDO",
+      "telefono": "600000044",
+      "email": "carlos.domingo.gordo@example.com"
+    },
+    {
+      "nombre": "JUAN CARLOS AGUDO MADRIGAL",
+      "telefono": "600000045",
+      "email": "juan.carlos.agudo.madrigal@example.com"
+    },
+    {
+      "nombre": "JOSE RUANO DOMINGUEZ",
+      "telefono": "600000046",
+      "email": "jose.ruano.dominguez@example.com"
+    },
+    {
+      "nombre": "FRANCISCO ADANERO MERINO",
+      "telefono": "600000047",
+      "email": "francisco.adanero.merino@example.com"
+    },
+    {
+      "nombre": "RAUL MORENO RUBIO",
+      "telefono": "600000048",
+      "email": "raul.moreno.rubio@example.com"
+    },
+    {
+      "nombre": "JAVIER FARIÑA QUIROGA",
+      "telefono": "600000049",
+      "email": "javier.farina.quiroga@example.com"
+    },
+    {
+      "nombre": "ANA GARCÍA GARCÉS",
+      "telefono": "600000050",
+      "email": "ana.garcia.garces@example.com"
+    },
+    {
+      "nombre": "FRANCISCO JAVIER CARRETERO LAZARO",
+      "telefono": "600000051",
+      "email": "francisco.javier.carretero.lazaro@example.com"
+    },
+    {
+      "nombre": "MANUELA ABELLÁN MARÍN",
+      "telefono": "600000052",
+      "email": "manuela.abellan.marin@example.com"
+    },
+    {
+      "nombre": "MAURICIO BLANCO CASABELLA",
+      "telefono": "600000053",
+      "email": "mauricio.blanco.casabella@example.com"
+    },
+    {
+      "nombre": "JOHN GRISWOLD ORELLANA",
+      "telefono": "600000054",
+      "email": "john.griswold.orellana@example.com"
+    },
+    {
+      "nombre": "NATIVIDAD PARRADO COLINAS",
+      "telefono": "600000055",
+      "email": "natividad.parrado.colinas@example.com"
+    },
+    {
+      "nombre": "ALFONSO HERRERA GOLDEROS",
+      "telefono": "600000056",
+      "email": "alfonso.herrera.golderos@example.com"
+    },
+    {
+      "nombre": "IGNACIO GREGORIO SALES",
+      "telefono": "600000057",
+      "email": "ignacio.gregorio.sales@example.com"
+    },
+    {
+      "nombre": "JAVIER BAEZA ESCUDERO",
+      "telefono": "600000058",
+      "email": "javier.baeza.escudero@example.com"
+    },
+    {
+      "nombre": "ROBERTO GASTÓN CORBALÁN LUGO",
+      "telefono": "600000059",
+      "email": "roberto.gaston.corbalan.lugo@example.com"
+    },
+    {
+      "nombre": "JAIME CASTILLO MARTÍNEZ",
+      "telefono": "600000060",
+      "email": "jaime.castillo.martinez@example.com"
+    },
+    {
+      "nombre": "JOSÉ VILLÉN ALTAMIRANO",
+      "telefono": "600000061",
+      "email": "jose.villen.altamirano@example.com"
+    },
+    {
+      "nombre": "JESÚS RODRÍGUEZ MORENO",
+      "telefono": "600000062",
+      "email": "jesus.rodriguez.moreno@example.com"
+    },
+    {
+      "nombre": "FERNANDO ARROYO RUBIO",
+      "telefono": "600000063",
+      "email": "fernando.arroyo.rubio@example.com"
+    },
+    {
+      "nombre": "JUAN JOSE RUIZ VAZQUEZ",
+      "telefono": "600000064",
+      "email": "juan.jose.ruiz.vazquez@example.com"
+    },
+    {
+      "nombre": "RAFAEL SÁNCHEZ MUJICA",
+      "telefono": "600000065",
+      "email": "rafael.sanchez.mujica@example.com"
+    },
+    {
+      "nombre": "JAIME MUÑOZ SAN JUAN",
+      "telefono": "600000066",
+      "email": "jaime.munoz.san.juan@example.com"
+    },
+    {
+      "nombre": "ANTONIO NÚÑEZ ELVIRA",
+      "telefono": "600000067",
+      "email": "antonio.nunez.elvira@example.com"
+    },
+    {
+      "nombre": "ÁNGEL LUIS DÍAZ FERNÁNDEZ",
+      "telefono": "600000068",
+      "email": "angel.luis.diaz.fernandez@example.com"
+    },
+    {
+      "nombre": "HERVE VALDIVIA ALTAMIRANO",
+      "telefono": "600000069",
+      "email": "herve.valdivia.altamirano@example.com"
+    },
+    {
+      "nombre": "MARIO LÓPEZ LÓPEZ",
+      "telefono": "600000070",
+      "email": "mario.lopez.lopez@example.com"
+    },
+    {
+      "nombre": "ALEJANDRO FEDRIANI MARTÍNEZ",
+      "telefono": "600000071",
+      "email": "alejandro.fedriani.martinez@example.com"
+    },
+    {
+      "nombre": "JESÚS ESCUDERO HERRANZ",
+      "telefono": "600000072",
+      "email": "jesus.escudero.herranz@example.com"
+    },
+    {
+      "nombre": "ROCIO MUÑOZ OLIVA",
+      "telefono": "600000073",
+      "email": "rocio.munoz.oliva@example.com"
+    },
+    {
+      "nombre": "MIRIAM SAYAGO DE LA FUENTE",
+      "telefono": "600000074",
+      "email": "miriam.sayago.de.la.fuente@example.com"
+    },
+    {
+      "nombre": "FRANCISCO VELADO GUILLEN",
+      "telefono": "600000075",
+      "email": "francisco.velado.guillen@example.com"
+    },
+    {
+      "nombre": "JOAQUÍN LÓPEZ GAMONAL",
+      "telefono": "600000076",
+      "email": "joaquin.lopez.gamonal@example.com"
+    },
+    {
+      "nombre": "FRANCISCO JAVIER GUTIÉRREZ PERNÍA",
+      "telefono": "600000077",
+      "email": "francisco.javier.gutierrez.pernia@example.com"
+    },
+    {
+      "nombre": "VERÓNICA ESCOBOSA GARCIA",
+      "telefono": "600000078",
+      "email": "veronica.escobosa.garcia@example.com"
+    },
+    {
+      "nombre": "MIGUEL VELADO PULIDO",
+      "telefono": "600000079",
+      "email": "miguel.velado.pulido@example.com"
+    },
+    {
+      "nombre": "ESMERALDA CABRALES ACOSTA",
+      "telefono": "600000080",
+      "email": "esmeralda.cabrales.acosta@example.com"
+    }
+  ],
+  "calendarios": [
+    {
+      "fase": 2,
+      "grupo": "H",
+      "partidos": [
+        {
+          "id_partido": "108999",
+          "vuelta": 1,
+          "jornada": 1,
+          "semana": "2026-10-26",
+          "local": "ROBERTO GASTÓN CORBALÁN LUGO",
+          "visitante": "JOSÉ VILLÉN ALTAMIRANO"
+        },
+        {
+          "id_partido": "109000",
+          "vuelta": 1,
+          "jornada": 1,
+          "semana": "2026-10-26",
+          "local": "JAIME CASTILLO MARTÍNEZ",
+          "visitante": "IGNACIO GREGORIO SALES"
+        },
+        {
+          "id_partido": "109001",
+          "vuelta": 1,
+          "jornada": 1,
+          "semana": "2026-10-26",
+          "local": "JUAN JOSÉ RUIZ VÁZQUEZ",
+          "visitante": "FERNANDO ARROYO RUBIO"
+        },
+        {
+          "id_partido": "109002",
+          "vuelta": 1,
+          "jornada": 1,
+          "semana": "2026-10-26",
+          "local": "JAVIER BAEZA ESCUDERO",
+          "visitante": "JESÚS RODRÍGUEZ MORENO"
+        },
+        {
+          "id_partido": "109003",
+          "vuelta": 1,
+          "jornada": 2,
+          "semana": "2026-11-02",
+          "local": "JESÚS RODRÍGUEZ MORENO",
+          "visitante": "ROBERTO GASTÓN CORBALÁN LUGO"
+        },
+        {
+          "id_partido": "109004",
+          "vuelta": 1,
+          "jornada": 2,
+          "semana": "2026-11-02",
+          "local": "JUAN JOSÉ RUIZ VÁZQUEZ",
+          "visitante": "JAVIER BAEZA ESCUDERO"
+        },
+        {
+          "id_partido": "109005",
+          "vuelta": 1,
+          "jornada": 2,
+          "semana": "2026-11-02",
+          "local": "FERNANDO ARROYO RUBIO",
+          "visitante": "IGNACIO GREGORIO SALES"
+        },
+        {
+          "id_partido": "109006",
+          "vuelta": 1,
+          "jornada": 2,
+          "semana": "2026-11-02",
+          "local": "JOSÉ VILLÉN ALTAMIRANO",
+          "visitante": "JAIME CASTILLO MARTÍNEZ"
+        },
+        {
+          "id_partido": "109007",
+          "vuelta": 1,
+          "jornada": 3,
+          "semana": "2026-11-09",
+          "local": "JAIME CASTILLO MARTÍNEZ",
+          "visitante": "JESÚS RODRÍGUEZ MORENO"
+        },
+        {
+          "id_partido": "109008",
+          "vuelta": 1,
+          "jornada": 3,
+          "semana": "2026-11-09",
+          "local": "IGNACIO GREGORIO SALES",
+          "visitante": "JOSÉ VILLÉN ALTAMIRANO"
+        },
+        {
+          "id_partido": "109009",
+          "vuelta": 1,
+          "jornada": 3,
+          "semana": "2026-11-09",
+          "local": "JAVIER BAEZA ESCUDERO",
+          "visitante": "FERNANDO ARROYO RUBIO"
+        },
+        {
+          "id_partido": "109010",
+          "vuelta": 1,
+          "jornada": 3,
+          "semana": "2026-11-09",
+          "local": "ROBERTO GASTÓN CORBALÁN LUGO",
+          "visitante": "JUAN JOSÉ RUIZ VÁZQUEZ"
+        },
+        {
+          "id_partido": "109011",
+          "vuelta": 1,
+          "jornada": 4,
+          "semana": "2026-11-16",
+          "local": "FERNANDO ARROYO RUBIO",
+          "visitante": "JOSÉ VILLÉN ALTAMIRANO"
+        },
+        {
+          "id_partido": "109012",
+          "vuelta": 1,
+          "jornada": 4,
+          "semana": "2026-11-16",
+          "local": "JESÚS RODRÍGUEZ MORENO",
+          "visitante": "IGNACIO GREGORIO SALES"
+        },
+        {
+          "id_partido": "109013",
+          "vuelta": 1,
+          "jornada": 4,
+          "semana": "2026-11-16",
+          "local": "JUAN JOSÉ RUIZ VÁZQUEZ",
+          "visitante": "JAIME CASTILLO MARTÍNEZ"
+        },
+        {
+          "id_partido": "109014",
+          "vuelta": 1,
+          "jornada": 4,
+          "semana": "2026-11-16",
+          "local": "JAVIER BAEZA ESCUDERO",
+          "visitante": "ROBERTO GASTÓN CORBALÁN LUGO"
+        },
+        {
+          "id_partido": "109015",
+          "vuelta": 1,
+          "jornada": 5,
+          "semana": "2026-11-23",
+          "local": "JOSÉ VILLÉN ALTAMIRANO",
+          "visitante": "JESÚS RODRÍGUEZ MORENO"
+        },
+        {
+          "id_partido": "109016",
+          "vuelta": 1,
+          "jornada": 5,
+          "semana": "2026-11-23",
+          "local": "ROBERTO GASTÓN CORBALÁN LUGO",
+          "visitante": "FERNANDO ARROYO RUBIO"
+        },
+        {
+          "id_partido": "109017",
+          "vuelta": 1,
+          "jornada": 5,
+          "semana": "2026-11-23",
+          "local": "JAIME CASTILLO MARTÍNEZ",
+          "visitante": "JAVIER BAEZA ESCUDERO"
+        },
+        {
+          "id_partido": "109018",
+          "vuelta": 1,
+          "jornada": 5,
+          "semana": "2026-11-23",
+          "local": "IGNACIO GREGORIO SALES",
+          "visitante": "JUAN JOSÉ RUIZ VÁZQUEZ"
+        },
+        {
+          "id_partido": "109019",
+          "vuelta": 1,
+          "jornada": 6,
+          "semana": "2026-11-30",
+          "local": "JUAN JOSÉ RUIZ VÁZQUEZ",
+          "visitante": "JOSÉ VILLÉN ALTAMIRANO"
+        },
+        {
+          "id_partido": "109020",
+          "vuelta": 1,
+          "jornada": 6,
+          "semana": "2026-11-30",
+          "local": "JAVIER BAEZA ESCUDERO",
+          "visitante": "IGNACIO GREGORIO SALES"
+        },
+        {
+          "id_partido": "109021",
+          "vuelta": 1,
+          "jornada": 6,
+          "semana": "2026-11-30",
+          "local": "ROBERTO GASTÓN CORBALÁN LUGO",
+          "visitante": "JAIME CASTILLO MARTÍNEZ"
+        },
+        {
+          "id_partido": "109022",
+          "vuelta": 1,
+          "jornada": 6,
+          "semana": "2026-11-30",
+          "local": "FERNANDO ARROYO RUBIO",
+          "visitante": "JESÚS RODRÍGUEZ MORENO"
+        },
+        {
+          "id_partido": "109023",
+          "vuelta": 1,
+          "jornada": 7,
+          "semana": "2026-12-07",
+          "local": "IGNACIO GREGORIO SALES",
+          "visitante": "ROBERTO GASTÓN CORBALÁN LUGO"
+        },
+        {
+          "id_partido": "109024",
+          "vuelta": 1,
+          "jornada": 7,
+          "semana": "2026-12-07",
+          "local": "JOSÉ VILLÉN ALTAMIRANO",
+          "visitante": "JAVIER BAEZA ESCUDERO"
+        },
+        {
+          "id_partido": "109025",
+          "vuelta": 1,
+          "jornada": 7,
+          "semana": "2026-12-07",
+          "local": "JESÚS RODRÍGUEZ MORENO",
+          "visitante": "JUAN JOSÉ RUIZ VÁZQUEZ"
+        },
+        {
+          "id_partido": "109026",
+          "vuelta": 1,
+          "jornada": 7,
+          "semana": "2026-12-07",
+          "local": "JAIME CASTILLO MARTÍNEZ",
+          "visitante": "FERNANDO ARROYO RUBIO"
+        }
+      ]
+    }
+  ]
+}
