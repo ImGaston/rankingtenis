@@ -9,6 +9,7 @@ import { setsSchema, validarSets } from "@/lib/dominio/sets";
 import type { Set } from "@/lib/dominio/tipos";
 import { formatearNombre } from "@/lib/dominio/nombres";
 import { armarMailResultado } from "@/lib/mensajes/resultado";
+import { crearClienteAdmin } from "@/lib/supabase/admin";
 import { crearClienteServidor } from "@/lib/supabase/server";
 
 export async function solicitarVinculo(formData: FormData) {
@@ -122,4 +123,28 @@ export async function guardarResultado(
     cuerpo: mail.cuerpo,
     cc: rivalDe(partido, jugador.id).email,
   };
+}
+
+/**
+ * Borra los resultados registrados de un partido para que vuelva a aparecer
+ * como pendiente (p. ej. tras una prueba). Solo pueden hacerlo los dos
+ * jugadores del partido; el borrado salta la RLS porque esa tabla no tiene
+ * política de delete.
+ */
+export async function reiniciarResultado(
+  partidoId: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const { jugador } = await exigirJugador();
+  const id = z.string().uuid().parse(partidoId);
+  const partido = await obtenerPartido(id);
+  if (!partido) return { ok: false, error: "Partido no encontrado" };
+  if (partido.local_id !== jugador.id && partido.visitante_id !== jugador.id) {
+    return { ok: false, error: "No juegas este partido" };
+  }
+  const admin = crearClienteAdmin();
+  const { error } = await admin.from("resultados_enviados").delete().eq("partido_id", partido.id);
+  if (error) return { ok: false, error: error.message };
+  revalidatePath("/partidos");
+  revalidatePath(`/partidos/${partido.id}/resultado`);
+  return { ok: true };
 }

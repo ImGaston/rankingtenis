@@ -4,6 +4,7 @@ import { faseActual } from "@/lib/consultas/fases";
 import { misPartidos, nombreFase, rivalDe, soyLocal } from "@/lib/consultas/partidos";
 import { formatearNombre, formatearTelefono } from "@/lib/dominio/nombres";
 import { formatearDia } from "@/lib/mensajes/franjas";
+import { BotonReiniciar } from "@/componentes/boton-reiniciar";
 
 export const metadata = { title: "Mis partidos" };
 
@@ -26,8 +27,6 @@ export default async function Partidos() {
 
   const grupo = partidos[0].grupo;
   const hoy = new Date().toISOString().slice(0, 10);
-  const pendientes = partidos.filter((p) => p.resultados_enviados.length === 0);
-  const jugados = partidos.filter((p) => p.resultados_enviados.length > 0);
 
   return (
     <div className="space-y-6">
@@ -44,15 +43,23 @@ export default async function Partidos() {
       </header>
 
       <section className="space-y-3">
-        {pendientes.map((p) => {
+        {partidos.map((p) => {
           const local = soyLocal(p, jugador.id);
           const rival = rivalDe(p, jugador.id);
           const propuesto = p.propuestas_horario.length > 0;
-          const enCurso = p.semana <= hoy;
+          const enviado = p.resultados_enviados.length > 0;
+          const ultimoEnvio = enviado
+            ? p.resultados_enviados
+                .map((r) => r.creado_at)
+                .sort()
+                .at(-1)!
+                .slice(0, 10)
+            : null;
+          const enCurso = !enviado && p.semana <= hoy;
           return (
             <article
               key={p.id}
-              className={`tarjeta space-y-3 ${local ? "border-acento/50" : ""} ${enCurso ? "ring-1 ring-primario/30" : ""}`}
+              className={`tarjeta space-y-3 ${enviado ? "border-primario/40" : local ? "border-acento/50" : ""} ${enCurso ? "ring-1 ring-primario/30" : ""}`}
             >
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div>
@@ -64,33 +71,51 @@ export default async function Partidos() {
                   </p>
                   <h2 className="text-lg font-semibold">{formatearNombre(rival.nombre)}</h2>
                 </div>
-                <span
-                  className={`chip ${local ? "bg-acento-suave text-acento" : "bg-fondo text-texto-suave"}`}
-                >
-                  {local ? "Juegas de local" : "Juegas de visitante"}
-                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {enviado && (
+                    <span className="chip bg-primario text-white dark:text-fondo">
+                      ✓ Resultado enviado
+                    </span>
+                  )}
+                  <span
+                    className={`chip ${local ? "bg-acento-suave text-acento" : "bg-fondo text-texto-suave"}`}
+                  >
+                    {local ? "Juegas de local" : "Juegas de visitante"}
+                  </span>
+                </div>
               </div>
 
-              {local && (
-                <p className="text-sm text-acento">
-                  {propuesto
-                    ? "Ya le propusiste horario."
-                    : "Te toca escribirle para fijar día y hora."}
+              {enviado ? (
+                <p className="text-sm text-primario">
+                  Resultado registrado el {formatearDia(ultimoEnvio!)}. Si fue una prueba o te
+                  equivocaste, reinicia el partido.
                 </p>
+              ) : (
+                local && (
+                  <p className="text-sm text-acento">
+                    {propuesto
+                      ? "Ya le propusiste horario."
+                      : "Te toca escribirle para fijar día y hora."}
+                  </p>
+                )
               )}
 
               <div className="flex flex-wrap gap-2">
                 {local && (
                   <Link
                     href={`/partidos/${p.id}/proponer`}
-                    className={propuesto ? "boton-secundario" : "boton-acento"}
+                    className={propuesto || enviado ? "boton-secundario" : "boton-acento"}
                   >
                     {propuesto ? "Volver a proponer" : "Proponer horario"}
                   </Link>
                 )}
-                <Link href={`/partidos/${p.id}/resultado`} className="boton-primario">
-                  Enviar resultado
+                <Link
+                  href={`/partidos/${p.id}/resultado`}
+                  className={enviado ? "boton-secundario" : "boton-primario"}
+                >
+                  {enviado ? "Ver o reenviar resultado" : "Enviar resultado"}
                 </Link>
+                {enviado && <BotonReiniciar partidoId={p.id} />}
               </div>
 
               <dl className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-texto-suave">
@@ -126,30 +151,6 @@ export default async function Partidos() {
           );
         })}
       </section>
-
-      {jugados.length > 0 && (
-        <section className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-texto-suave">
-            Resultado enviado
-          </h2>
-          {jugados.map((p) => (
-            <article
-              key={p.id}
-              className="tarjeta flex flex-wrap items-center justify-between gap-2 opacity-80"
-            >
-              <div>
-                <p className="text-sm text-texto-suave">
-                  Jornada {p.jornada} · semana del {formatearDia(p.semana)}
-                </p>
-                <p className="font-medium">{formatearNombre(rivalDe(p, jugador.id).nombre)}</p>
-              </div>
-              <Link href={`/partidos/${p.id}/resultado`} className="text-sm underline">
-                Ver o reenviar
-              </Link>
-            </article>
-          ))}
-        </section>
-      )}
     </div>
   );
 }
