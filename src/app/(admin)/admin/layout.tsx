@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { exigirAdmin } from "@/lib/consultas/sesion";
@@ -16,8 +17,15 @@ export default async function LayoutAdmin({ children }: { children: ReactNode })
       <header className="border-b border-borde bg-superficie">
         <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
           <div className="flex items-center gap-4">
-            <Link href="/partidos" className="font-bold tracking-tight">
-              🎾 Ranking Tenis Rivas
+            <Link href="/partidos" className="flex items-center gap-2 font-bold tracking-tight">
+              <Image
+                src="/logo-rivas.png"
+                alt="Rivas Vaciamadrid"
+                width={42}
+                height={44}
+                priority
+              />
+              <span>Ranking Tenis Rivas</span>
             </Link>
             <span className="chip bg-acento-suave text-acento">Admin</span>
           </div>
