@@ -4,9 +4,9 @@ import { iniciarSesionGoogle } from "./acciones";
 export default async function Inicio({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; siguiente?: string }>;
+  searchParams: Promise<{ error?: string; siguiente?: string; cuenta?: string }>;
 }) {
-  const { error, siguiente } = await searchParams;
+  const { error, siguiente, cuenta } = await searchParams;
   return (
     <main className="flex flex-1 flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-md space-y-8">
@@ -49,6 +49,11 @@ export default async function Inicio({
           {error === "login" && (
             <p className="text-sm text-peligro">
               No se pudo completar el acceso. Vuelve a intentarlo.
+            </p>
+          )}
+          {cuenta === "eliminada" && (
+            <p className="text-sm text-primario" role="status">
+              Tu cuenta se ha eliminado. Puedes volver a entrar cuando quieras.
             </p>
           )}
           <p className="text-xs text-texto-suave">

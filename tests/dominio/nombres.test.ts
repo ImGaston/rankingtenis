@@ -3,6 +3,7 @@ import {
   formatearNombre,
   formatearTelefono,
   nombreDePila,
+  nombreVisible,
   normalizarNombre,
   normalizarTelefono,
 } from "@/lib/dominio/nombres";
@@ -45,5 +46,16 @@ describe("normalizarTelefono", () => {
   });
   it("formatea para lectura", () => {
     expect(formatearTelefono("+34612345678")).toBe("+34 612 345 678");
+  });
+});
+
+describe("nombreVisible", () => {
+  it("usa el apodo del perfil si lo hay", () => {
+    expect(nombreVisible("Gaston", "ROBERTO GASTÓN CORBALÁN LUGO")).toBe("Gaston");
+    expect(nombreVisible("Juanjo", "JUAN JOSE RUIZ VAZQUEZ")).toBe("Juanjo");
+  });
+  it("si no hay apodo (o está vacío) cae al nombre de pila de la liga", () => {
+    expect(nombreVisible(null, "ROBERTO GASTÓN CORBALÁN LUGO")).toBe("Roberto");
+    expect(nombreVisible("   ", "JUAN JOSE RUIZ VAZQUEZ")).toBe("Juan");
   });
 });

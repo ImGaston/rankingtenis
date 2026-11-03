@@ -12,7 +12,7 @@ export interface PartidoDetalle extends Partido {
   local: Jugador;
   visitante: Jugador;
   propuestas_horario: { id: string; creado_at: string; usuario_id: string }[];
-  resultados_enviados: { id: string; creado_at: string; usuario_id: string }[];
+  resultados_enviados: { id: string; creado_at: string; usuario_id: string | null }[];
   /** W.O. registrado para el partido, si lo hay. */
   walkover: Pick<
     Walkover,

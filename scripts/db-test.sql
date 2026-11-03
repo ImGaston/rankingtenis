@@ -307,4 +307,38 @@ end $$;
 reset role;
 update public.fases set publicada = true where numero = 2;
 
+-- Perfil: apodo y baja de cuenta (0007)
+do $$ begin
+  update public.usuarios set apodo = 'Gaston' where id = '00000000-0000-0000-0000-000000000002';
+  begin
+    update public.usuarios set apodo = ' con espacios ' where id = '00000000-0000-0000-0000-000000000002';
+    raise exception 'el apodo no debería admitir espacios alrededor';
+  exception when check_violation then null;
+  end;
+  begin
+    update public.usuarios set apodo = repeat('a', 41) where id = '00000000-0000-0000-0000-000000000002';
+    raise exception 'el apodo no debería pasar de 40 caracteres';
+  exception when check_violation then null;
+  end;
+end $$;
+-- El jugador 2 tiene un resultado enviado y marca un W.O.; al borrar su cuenta
+-- se conservan sin autor y sus propuestas desaparecen.
+do $$
+declare
+  v_yo uuid := (select jugador_id from public.usuarios where id = '00000000-0000-0000-0000-000000000002');
+  v_partido uuid := (select id from public.partidos where local_id = v_yo order by jornada desc limit 1);
+begin
+  insert into public.walkovers (partido_id, usuario_id, ausente_id, motivo)
+  values (v_partido, '00000000-0000-0000-0000-000000000002', v_yo, 'baja');
+  assert (select count(*) from public.propuestas_horario where usuario_id = '00000000-0000-0000-0000-000000000002') = 1, 'tiene una propuesta';
+  delete from auth.users where id = '00000000-0000-0000-0000-000000000002';
+  assert not exists (select 1 from public.usuarios where id = '00000000-0000-0000-0000-000000000002'), 'usuario borrado en cascada';
+  assert (select count(*) from public.propuestas_horario where usuario_id = '00000000-0000-0000-0000-000000000002') = 0, 'propuestas borradas';
+  assert (select count(*) from public.resultados_enviados where usuario_id is null) >= 1, 'resultado enviado conservado sin autor';
+  assert exists (select 1 from public.walkovers where partido_id = v_partido and usuario_id is null), 'W.O. conservado sin autor';
+  assert not exists (select 1 from public.walkovers where usuario_id = '00000000-0000-0000-0000-000000000002'), 'ningún W.O. apunta al usuario borrado';
+  assert exists (select 1 from public.jugadores where id = v_yo), 'la ficha de jugador sigue';
+  delete from public.walkovers where partido_id = v_partido;
+end $$;
+
 \echo TODAS LAS PRUEBAS SQL PASARON

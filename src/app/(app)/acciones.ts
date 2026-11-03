@@ -213,3 +213,36 @@ export async function quitarWalkover(
   revalidatePath(`/partidos/${id}/wo`);
   return { ok: true };
 }
+
+const apodoSchema = z.string().trim().max(40);
+
+/**
+ * Guarda el apodo del perfil (vacío = volver al nombre de pila de la liga).
+ * La RLS no deja al usuario editar su fila (protege rol y vínculo), así que
+ * se escribe con la clave de servicio tocando solo esa columna.
+ */
+export async function guardarApodo(formData: FormData) {
+  const { usuario } = await exigirSesion();
+  const apodo = apodoSchema.parse(formData.get("apodo") ?? "") || null;
+  const admin = crearClienteAdmin();
+  const { error } = await admin.from("usuarios").update({ apodo }).eq("id", usuario.id);
+  if (error) throw new Error(`No se pudo guardar el nombre: ${error.message}`);
+  revalidatePath("/", "layout");
+  redirect("/perfil?guardado=1");
+}
+
+/**
+ * Borra la cuenta: auth.users → usuarios (cascada) → propuestas de horario.
+ * Resultados enviados y W.O. quedan sin autor (ver 0007_perfil.sql). La ficha
+ * de jugador es de la liga y no se toca; si vuelve a entrar con el mismo
+ * correo, handle_new_user lo vincula otra vez.
+ */
+export async function eliminarCuenta(): Promise<{ ok: false; error: string } | undefined> {
+  const { usuario } = await exigirSesion();
+  const admin = crearClienteAdmin();
+  const { error } = await admin.auth.admin.deleteUser(usuario.id);
+  if (error) return { ok: false, error: error.message };
+  const supabase = await crearClienteServidor();
+  await supabase.auth.signOut();
+  redirect("/?cuenta=eliminada");
+}

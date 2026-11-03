@@ -39,6 +39,16 @@ export function nombreDePila(nombre: string): string {
 }
 
 /**
+ * Cómo quiere que le llamen: su apodo si lo puso en el perfil; si no, el
+ * nombre de pila de la lista de la liga. Se usa en el menú, en la cabecera
+ * de partidos y en el WhatsApp al rival (no en el mail oficial a la liga).
+ */
+export function nombreVisible(apodo: string | null | undefined, nombreLiga: string): string {
+  const a = apodo?.trim();
+  return a ? a : nombreDePila(nombreLiga);
+}
+
+/**
  * Misma normalización que public.normalizar_nombre en la base: mayúsculas,
  * sin diacríticos ni signos, espacios colapsados.
  */

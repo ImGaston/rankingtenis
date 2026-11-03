@@ -4,7 +4,7 @@ import { armarMensajeWhatsapp, urlWhatsapp } from "@/lib/mensajes/whatsapp";
 describe("mensaje de WhatsApp", () => {
   it("arma el texto con las franjas", () => {
     const texto = armarMensajeWhatsapp({
-      yo: "ROBERTO GASTÓN CORBALÁN LUGO",
+      yo: "Roberto Gastón Corbalán Lugo",
       rival: "JOSÉ VILLÉN ALTAMIRANO",
       jornada: 1,
       grupo: "H",
@@ -19,6 +19,16 @@ describe("mensaje de WhatsApp", () => {
         "En cuanto me digas reservo la pista.",
       ].join("\n"),
     );
+  });
+  it("se presenta con el nombre visible tal cual (apodo del perfil)", () => {
+    const texto = armarMensajeWhatsapp({
+      yo: "Gaston",
+      rival: "JUAN JOSE RUIZ VAZQUEZ",
+      jornada: 3,
+      grupo: "H",
+      franjas: [],
+    });
+    expect(texto).toContain("Hola Juan, soy Gaston, tu rival de la jornada 3");
   });
   it("pregunta por la disponibilidad si no hay franjas", () => {
     const texto = armarMensajeWhatsapp({

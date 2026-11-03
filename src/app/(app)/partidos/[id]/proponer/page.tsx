@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { exigirJugador } from "@/lib/consultas/sesion";
 import { obtenerPartido, rivalDe, soyLocal } from "@/lib/consultas/partidos";
-import { formatearNombre } from "@/lib/dominio/nombres";
+import { formatearNombre, nombreVisible } from "@/lib/dominio/nombres";
 import { formatearDia } from "@/lib/mensajes/franjas";
 import { FormularioPropuesta } from "@/componentes/formulario-propuesta";
 
@@ -10,7 +10,7 @@ export const metadata = { title: "Proponer horario" };
 
 export default async function Proponer({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const { jugador } = await exigirJugador();
+  const { usuario, jugador } = await exigirJugador();
   const partido = await obtenerPartido(id);
   if (!partido || (partido.local_id !== jugador.id && partido.visitante_id !== jugador.id))
     notFound();
@@ -40,7 +40,7 @@ export default async function Proponer({ params }: { params: Promise<{ id: strin
         semana={partido.semana}
         jornada={partido.jornada}
         grupo={partido.grupo.letra}
-        yo={jugador.nombre}
+        yo={nombreVisible(usuario.apodo, jugador.nombre)}
         rival={rival.nombre}
         telefonoRival={rival.telefono}
       />

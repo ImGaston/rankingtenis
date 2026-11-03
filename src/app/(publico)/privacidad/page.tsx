@@ -38,8 +38,9 @@ export default function Privacidad() {
         <p>Los datos se borran al terminar la temporada.</p>
         <h2 className="text-lg font-semibold text-texto">Tus derechos</h2>
         <p>
-          Puedes pedir que se corrijan o eliminen tus datos en cualquier momento escribiendo al
-          administrador de la app, que es quien figura como responsable del tratamiento. Si
+          Puedes eliminar tu cuenta de la app en cualquier momento desde tu perfil, y pedir que se
+          corrijan o eliminen el resto de tus datos escribiendo al administrador de la app, que es
+          quien figura como responsable del tratamiento. Si
           prefieres no aparecer, se elimina tu ficha y el resto de tu grupo seguirá teniendo tus
           datos solo por el canal oficial de la liga.
         </p>

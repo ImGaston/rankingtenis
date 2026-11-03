@@ -1,8 +1,9 @@
 import type { Franja } from "@/lib/dominio/tipos";
-import { formatearNombre, nombreDePila } from "@/lib/dominio/nombres";
+import { nombreDePila } from "@/lib/dominio/nombres";
 import { describirFranjas } from "./franjas";
 
 export interface DatosPropuesta {
+  /** Cómo quiere presentarse quien escribe (ver nombreVisible), tal cual. */
   yo: string;
   rival: string;
   jornada: number;
@@ -18,7 +19,7 @@ export function armarMensajeWhatsapp(d: DatosPropuesta): string {
       ? "¿Qué días y horas te vienen bien?"
       : `Me va bien:\n${lineas.map((l) => `- ${l}`).join("\n")}\n¿Cuál te viene mejor?`;
   return [
-    `Hola ${nombreDePila(d.rival)}, soy ${formatearNombre(d.yo)}, tu rival de la jornada ${d.jornada} del Ranking de Tenis (grupo ${d.grupo}).`,
+    `Hola ${nombreDePila(d.rival)}, soy ${d.yo}, tu rival de la jornada ${d.jornada} del Ranking de Tenis (grupo ${d.grupo}).`,
     disponibilidad,
     "En cuanto me digas reservo la pista.",
   ].join("\n");

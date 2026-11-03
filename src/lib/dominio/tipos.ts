@@ -47,6 +47,8 @@ export interface Usuario {
   jugador_id: string | null;
   estado_vinculo: EstadoVinculo;
   jugador_solicitado_id: string | null;
+  /** Cómo quiere aparecer ("Gaston", "Juanjo"); null = nombre de pila de la liga. */
+  apodo: string | null;
   creado_at: string;
 }
 
@@ -74,7 +76,8 @@ export type Set = [number, number];
 export interface ResultadoEnviado {
   id: string;
   partido_id: string;
-  usuario_id: string;
+  /** null si el autor borró su cuenta. */
+  usuario_id: string | null;
   fecha_partido: string;
   sets: Set[];
   ganador_id: string;
@@ -145,7 +148,8 @@ export type MotivoWalkover = "lesion" | "baja" | "incomparecencia" | "otro";
 export interface Walkover {
   id: string;
   partido_id: string;
-  usuario_id: string;
+  /** null si quien lo marcó borró su cuenta. */
+  usuario_id: string | null;
   ausente_id: string;
   motivo: MotivoWalkover;
   con_sancion: boolean;

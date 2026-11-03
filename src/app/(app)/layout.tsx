@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { exigirSesion } from "@/lib/consultas/sesion";
-import { nombreDePila } from "@/lib/dominio/nombres";
+import { nombreVisible } from "@/lib/dominio/nombres";
 
 export default async function LayoutApp({ children }: { children: ReactNode }) {
   const { usuario, jugador } = await exigirSesion();
@@ -43,12 +43,13 @@ export default async function LayoutApp({ children }: { children: ReactNode }) {
                 Admin
               </Link>
             )}
-            <span
-              className="hidden max-w-[12rem] truncate text-texto-suave sm:inline"
-              title={usuario.email}
+            <Link
+              href="/perfil"
+              className="max-w-[7rem] truncate rounded-md px-2 py-1 text-texto-suave hover:text-texto sm:max-w-[12rem]"
+              title={`Tu perfil · ${usuario.email}`}
             >
-              {jugador ? nombreDePila(jugador.nombre) : usuario.email}
-            </span>
+              {jugador ? nombreVisible(usuario.apodo, jugador.nombre) : usuario.apodo || usuario.email}
+            </Link>
             <form action="/auth/salir" method="post">
               <button
                 type="submit"
