@@ -18,6 +18,9 @@ import { describirWalkover } from "@/lib/dominio/walkover";
 
 export const metadata = { title: "Mis partidos" };
 
+/** Polideportivo Cerro del Telégrafo: reserva de pistas por teléfono. */
+const TELEFONO_CERRO = "+34916665033";
+
 export default async function Partidos() {
   const { jugador } = await exigirJugador();
   const [fase, partidos] = await Promise.all([faseActual(), misPartidos(jugador.id)]);
@@ -47,11 +50,20 @@ export default async function Partidos() {
             {nombreFase(grupo.fase)} · Grupo {grupo.letra} · {formatearNombre(jugador.nombre)}
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-3 text-xs text-texto-suave">
-          <Link href="/clasificacion" className="text-sm text-primario underline">
-            Clasificación del grupo →
-          </Link>
-          <p>Local: propones tú en 48 h. Resultado: antes de 7 días.</p>
+        <div className="flex flex-col items-start gap-2 sm:items-end">
+          <a
+            href={`tel:${TELEFONO_CERRO}`}
+            className="boton-secundario"
+            title="Reservar pista en el polideportivo Cerro del Telégrafo"
+          >
+            📞 Reservar pista · {formatearTelefono(TELEFONO_CERRO)}
+          </a>
+          <div className="flex flex-wrap items-center gap-3 text-xs text-texto-suave">
+            <Link href="/clasificacion" className="text-sm text-primario underline">
+              Clasificación del grupo →
+            </Link>
+            <p>Local: propones tú en 48 h. Resultado: antes de 7 días.</p>
+          </div>
         </div>
       </header>
 
