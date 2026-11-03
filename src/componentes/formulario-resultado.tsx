@@ -126,13 +126,13 @@ export function FormularioResultado(p: Props) {
   return (
     <div className="space-y-6">
       {p.previo && (
-        <div className="tarjeta border-primario/40 bg-primario-suave text-sm">
+        <div className="tarjeta border-rivas-amarillo bg-acento-suave text-sm">
           Ya generaste un resultado para este partido. Puedes revisarlo y volver a abrir el mail.
         </div>
       )}
 
       <section className="tarjeta space-y-4">
-        <h2 className="font-semibold">1. Resultado</h2>
+        <h2 className="text-lg font-bold">1. Resultado</h2>
         <label className="block max-w-xs">
           <span className="etiqueta">Fecha del partido</span>
           <input
@@ -233,7 +233,7 @@ export function FormularioResultado(p: Props) {
       </section>
 
       <section className="tarjeta space-y-3">
-        <h2 className="font-semibold">2. Mail para la liga</h2>
+        <h2 className="text-lg font-bold">2. Mail para la liga</h2>
         <label className="block max-w-md">
           <span className="etiqueta">Copia al rival</span>
           <input
@@ -245,7 +245,7 @@ export function FormularioResultado(p: Props) {
           />
         </label>
         {mail ? (
-          <div className="rounded-lg border border-borde bg-fondo p-3 text-sm">
+          <div className="rounded-[4px] border border-borde bg-fondo p-3 text-sm">
             <p className="text-texto-suave">
               Para: {p.ligaEmail}
               {destinatarios.cc ? ` · CC: ${destinatarios.cc}` : ""}

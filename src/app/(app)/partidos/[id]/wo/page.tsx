@@ -36,7 +36,9 @@ export default async function MarcarWo({ params }: { params: Promise<{ id: strin
           Jornada {partido.jornada} · semana del {formatearDia(partido.semana)} · Grupo{" "}
           {partido.grupo.letra} · Id {partido.id_partido}
         </p>
-        <h1 className="text-2xl font-bold">Marcar W.O. contra {formatearNombre(rival.nombre)}</h1>
+        <h1 className="titulo-pagina banderin">
+          Marcar W.O. contra {formatearNombre(rival.nombre)}
+        </h1>
         <p className="mt-1 text-sm text-texto-suave">
           Para cuando la liga avisa de que un jugador no puede disputar el partido y lo da por
           perdido 0-6 0-6. No se manda ningún mail: la coordinación ya lo tiene.
@@ -44,7 +46,7 @@ export default async function MarcarWo({ params }: { params: Promise<{ id: strin
       </header>
 
       {previo && (
-        <div className="tarjeta border-primario/40 bg-primario-suave text-sm">
+        <div className="tarjeta border-rivas-amarillo bg-acento-suave text-sm">
           Este partido ya tiene un W.O. registrado. Si lo guardas de nuevo, se sustituye.
         </div>
       )}

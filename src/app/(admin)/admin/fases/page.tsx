@@ -9,7 +9,7 @@ export default async function AdminFases() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold">Fases</h1>
+        <h1 className="titulo-pagina banderin">Fases</h1>
         <p className="text-texto-suave">
           Los jugadores solo ven la fase marcada como actual y publicada. Revisa los datos antes de
           publicar.

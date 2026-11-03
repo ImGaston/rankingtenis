@@ -3,51 +3,35 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { exigirSesion } from "@/lib/consultas/sesion";
 import { nombreVisible } from "@/lib/dominio/nombres";
+import { NavPrincipal, type EnlaceNav } from "@/componentes/nav-principal";
 
 export default async function LayoutApp({ children }: { children: ReactNode }) {
   const { usuario, jugador } = await exigirSesion();
+  const enlaces: EnlaceNav[] = [
+    ...(jugador
+      ? [
+          { href: "/partidos", texto: "Partidos" },
+          { href: "/clasificacion", texto: "Clasificación" },
+          { href: "/ranking", texto: "Ranking" },
+        ]
+      : []),
+    ...(usuario.rol === "admin" ? [{ href: "/admin", texto: "Admin" }] : []),
+  ];
   return (
     <>
-      <header className="border-b border-borde bg-superficie">
-        <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-4 py-3">
-          <Link href="/partidos" className="flex items-center gap-2 font-bold tracking-tight">
-            <Image src="/logo-rivas.png" alt="Rivas Vaciamadrid" width={42} height={44} priority />
-            <span>Ranking Tenis Rivas</span>
+      <header className="border-t-4 border-b border-t-rivas-rojo border-b-borde bg-superficie">
+        <div className="mx-auto flex w-full max-w-3xl flex-wrap items-center justify-between gap-x-4 px-4 pt-3 sm:items-end">
+          <Link href="/partidos" className="flex items-center gap-2.5 pb-2">
+            <Image src="/logo-rivas.png" alt="Rivas Vaciamadrid" width={38} height={40} priority />
+            <span className="font-display text-base leading-none uppercase">
+              Ranking
+              <span className="block text-xs tracking-[0.06em] text-texto-suave">Tenis Rivas</span>
+            </span>
           </Link>
-          <nav className="flex items-center gap-3 text-sm">
-            {jugador && (
-              <>
-                <Link
-                  href="/partidos"
-                  className="rounded-md px-2 py-1 text-texto-suave hover:text-texto"
-                >
-                  Partidos
-                </Link>
-                <Link
-                  href="/clasificacion"
-                  className="rounded-md px-2 py-1 text-texto-suave hover:text-texto"
-                >
-                  Clasificación
-                </Link>
-                <Link
-                  href="/ranking"
-                  className="hidden rounded-md px-2 py-1 text-texto-suave hover:text-texto sm:inline"
-                >
-                  Ranking
-                </Link>
-              </>
-            )}
-            {usuario.rol === "admin" && (
-              <Link
-                href="/admin"
-                className="rounded-md px-2 py-1 text-texto-suave hover:text-texto"
-              >
-                Admin
-              </Link>
-            )}
+          <div className="flex items-center gap-1 pb-2 text-sm sm:order-2">
             <Link
               href="/perfil"
-              className="max-w-[7rem] truncate rounded-md px-2 py-1 text-texto-suave hover:text-texto sm:max-w-[12rem]"
+              className="max-w-[8rem] truncate px-2 py-2 font-bold hover:underline sm:max-w-[12rem]"
               title={`Tu perfil · ${usuario.email}`}
             >
               {jugador
@@ -55,13 +39,13 @@ export default async function LayoutApp({ children }: { children: ReactNode }) {
                 : usuario.apodo || usuario.email}
             </Link>
             <form action="/auth/salir" method="post">
-              <button
-                type="submit"
-                className="rounded-md px-2 py-1 text-texto-suave hover:text-texto"
-              >
+              <button type="submit" className="px-2 py-2 text-texto-suave hover:text-texto">
                 Salir
               </button>
             </form>
+          </div>
+          <nav className="-mb-px flex w-full items-center gap-1 text-sm sm:w-auto sm:order-1">
+            <NavPrincipal enlaces={enlaces} />
           </nav>
         </div>
       </header>

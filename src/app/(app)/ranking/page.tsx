@@ -4,6 +4,7 @@ import { listarRanking } from "@/lib/consultas/clasificacion";
 import { formatearNombre } from "@/lib/dominio/nombres";
 import type { RankingFila, TipoRanking } from "@/lib/dominio/tipos";
 import { formatearDia } from "@/lib/mensajes/franjas";
+import { CeldaPosicion, EtiquetaTu } from "@/componentes/posicion";
 
 export const metadata = { title: "Ranking general" };
 
@@ -19,13 +20,19 @@ function Tabla({ filas, destacarId }: { filas: RankingFila[]; destacarId: string
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
-        <thead className="text-left text-texto-suave">
+        <thead className="rotulo text-left">
           <tr>
-            <th className="py-1 pr-2 font-medium">Pos</th>
-            <th className="py-1 pr-3 font-medium">Jugador</th>
-            <th className="py-1 pr-3 text-right font-medium">Puntos</th>
+            <th scope="col" className="py-2 pr-2 font-bold">
+              Pos
+            </th>
+            <th scope="col" className="py-2 pr-3 font-bold">
+              Jugador
+            </th>
+            <th scope="col" className="py-2 pr-3 text-right font-bold">
+              Puntos
+            </th>
             {fases.map((f) => (
-              <th key={f} className="py-1 pr-2 text-right font-medium whitespace-nowrap">
+              <th key={f} scope="col" className="py-2 pr-2 text-right font-bold whitespace-nowrap">
                 F{f}
               </th>
             ))}
@@ -37,13 +44,16 @@ function Tabla({ filas, destacarId }: { filas: RankingFila[]; destacarId: string
             return (
               <tr
                 key={f.jugador_id}
-                className={`border-t border-borde ${yo ? "bg-primario-suave font-semibold" : ""}`}
+                className={`border-t border-borde ${yo ? "bg-primario-suave font-bold" : ""}`}
               >
-                <td className="py-1 pr-2 tabular-nums">{f.posicion}</td>
-                <td className="py-1 pr-3">{formatearNombre(f.nombre)}</td>
-                <td className="py-1 pr-3 text-right tabular-nums font-semibold">{f.puntos}</td>
+                <CeldaPosicion posicion={f.posicion} />
+                <td className="py-2 pr-3 font-bold">
+                  {formatearNombre(f.nombre)}
+                  {yo && <EtiquetaTu />}
+                </td>
+                <td className="py-2 pr-3 text-right cifra font-display text-lg">{f.puntos}</td>
                 {fases.map((k) => (
-                  <td key={k} className="py-1 pr-2 text-right tabular-nums text-texto-suave">
+                  <td key={k} className="py-2 pr-2 text-right cifra text-texto-suave">
                     {f.por_fase[k] ?? ""}
                   </td>
                 ))}
@@ -69,13 +79,16 @@ export default async function Ranking() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h1 className="text-2xl font-bold">Ranking general</h1>
-          <p className="text-texto-suave">
+          <h1 className="titulo-pagina banderin">Ranking general</h1>
+          <p className="mt-2 text-texto-suave">
             {filas[0] ? `Temporada ${filas[0].temporada}` : "Puntos acumulados por fase"}
             {corte ? ` · publicado el ${formatearDia(corte)}` : ""}
           </p>
         </div>
-        <Link href="/clasificacion" className="text-sm text-primario underline">
+        <Link
+          href="/clasificacion"
+          className="text-sm font-bold text-primario underline underline-offset-4"
+        >
           ← Mi grupo
         </Link>
       </header>
@@ -87,14 +100,25 @@ export default async function Ranking() {
       ) : (
         <>
           {miPosicion && (
-            <div className="tarjeta border-primario/40 bg-primario-suave text-sm">
-              Vas <strong>{miPosicion.posicion}º</strong> con{" "}
-              <strong>{miPosicion.puntos} puntos</strong>.
+            <div className="flex items-stretch overflow-hidden rounded-[4px] bg-[#171717] text-white">
+              <div className="flex flex-col justify-center bg-rivas-rojo px-5 py-3 text-black">
+                <span className="text-xs font-bold tracking-[0.06em] uppercase">Puesto</span>
+                <span className="cifra font-display text-5xl leading-none sm:text-6xl">
+                  {miPosicion.posicion}
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col justify-center gap-1 px-5 py-3">
+                <p className="text-lg font-bold">Estás en el puesto {miPosicion.posicion}</p>
+                <p className="text-sm text-white/75">
+                  <span className="cifra font-bold text-white">{miPosicion.puntos}</span> puntos en
+                  el ranking general
+                </p>
+              </div>
             </div>
           )}
           {tipos.map((t) => (
             <section key={t} className="tarjeta space-y-3">
-              <h2 className="font-semibold">{TITULOS[t]}</h2>
+              <h2 className="text-xl font-bold">{TITULOS[t]}</h2>
               <Tabla filas={filas.filter((f) => f.tipo === t)} destacarId={jugador.id} />
             </section>
           ))}

@@ -31,7 +31,7 @@ export function SelectorJugador({
           autoComplete="off"
         />
       </label>
-      <div className="max-h-72 overflow-y-auto rounded-lg border border-borde divide-y divide-borde">
+      <div className="max-h-72 overflow-y-auto rounded-[4px] border border-borde divide-y divide-borde">
         {visibles.length === 0 && (
           <p className="p-3 text-sm text-texto-suave">Ningún nombre coincide.</p>
         )}

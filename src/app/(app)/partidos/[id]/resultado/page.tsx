@@ -39,7 +39,7 @@ export default async function Resultado({ params }: { params: Promise<{ id: stri
           Jornada {partido.jornada} · semana del {formatearDia(partido.semana)} · Grupo{" "}
           {partido.grupo.letra} · Id {partido.id_partido}
         </p>
-        <h1 className="text-2xl font-bold">
+        <h1 className="titulo-pagina banderin">
           {formatearNombre(partido.local.nombre)} <span className="text-texto-suave">vs</span>{" "}
           {formatearNombre(partido.visitante.nombre)}
         </h1>

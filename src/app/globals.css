@@ -1,74 +1,137 @@
 @import "tailwindcss";
 
+/*
+ * Design system «La pista es de todos».
+ * Los tokens rivas-* reproducen la paleta del manual de identidad de Rivas
+ * Vaciamadrid (sección 2.6). El resto son derivaciones funcionales para la web.
+ */
 :root {
-  --fondo: #f6f7f4;
+  --rivas-rojo: #ff1100;
+  --rivas-negro: #000000;
+  --rivas-amarillo: #f0ad00;
+  --rivas-violeta: #911083;
+  --rivas-verde: #74b71b;
+
+  --fondo: #f5f5f3;
   --superficie: #ffffff;
-  --texto: #1b1f1c;
-  --texto-suave: #5b6560;
-  --borde: #dde3dd;
-  --primario: #14532d;
-  --primario-suave: #e3f1e7;
-  --acento: #c2410c;
-  --acento-suave: #fff1e8;
-  --peligro: #b91c1c;
+  --superficie-elevada: #ebebe8;
+  --texto: #111111;
+  --texto-suave: #5f6063;
+  --borde: #ddddda;
+  /* Rojo de acción: el institucional no da contraste con texto blanco. */
+  --primario: #b42318;
+  --primario-hover: #a91a11;
+  --primario-suave: #fff0ee;
+  --acento: #7a5200;
+  --acento-suave: #fff7de;
+  --exito: #38610f;
+  --exito-suave: #edf6e5;
+  --peligro: #b42318;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fondo: #0f1411;
-    --superficie: #171d19;
-    --texto: #eef2ee;
-    --texto-suave: #a3ada6;
-    --borde: #2a332d;
-    --primario: #4ade80;
-    --primario-suave: #163522;
-    --acento: #fb923c;
-    --acento-suave: #3a2113;
-    --peligro: #f87171;
+    --fondo: #0d0d0d;
+    --superficie: #171717;
+    --superficie-elevada: #242424;
+    --texto: #f2f2f0;
+    --texto-suave: #a5a6a8;
+    --borde: #2e2e2c;
+    --primario: #b42318;
+    --primario-hover: #c42a1e;
+    --primario-suave: #3a1512;
+    --acento: #f0ad00;
+    --acento-suave: #332507;
+    --exito: #9bd156;
+    --exito-suave: #1d2b10;
+    --peligro: #ff7a6e;
   }
 }
 
 @theme inline {
+  --color-rivas-rojo: var(--rivas-rojo);
+  --color-rivas-negro: var(--rivas-negro);
+  --color-rivas-amarillo: var(--rivas-amarillo);
+  --color-rivas-violeta: var(--rivas-violeta);
+  --color-rivas-verde: var(--rivas-verde);
   --color-fondo: var(--fondo);
   --color-superficie: var(--superficie);
+  --color-superficie-elevada: var(--superficie-elevada);
   --color-texto: var(--texto);
   --color-texto-suave: var(--texto-suave);
   --color-borde: var(--borde);
   --color-primario: var(--primario);
+  --color-primario-hover: var(--primario-hover);
   --color-primario-suave: var(--primario-suave);
   --color-acento: var(--acento);
   --color-acento-suave: var(--acento-suave);
+  --color-exito: var(--exito);
+  --color-exito-suave: var(--exito-suave);
   --color-peligro: var(--peligro);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: Arial, Helvetica, sans-serif;
+  /* Sin licencia web de DIN: Arial Black hace de display. */
+  --font-display: "DIN Black", "Arial Black", Arial, Helvetica, sans-serif;
 }
 
 body {
   font-family: var(--font-sans);
 }
 
+/* Los enlaces de texto en rojo de acción: en modo oscuro hace falta aclararlo. */
+@media (prefers-color-scheme: dark) {
+  .text-primario,
+  .boton-contorno {
+    color: #ff7a6e;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer components {
   .tarjeta {
-    @apply rounded-xl border border-borde bg-superficie p-4 shadow-sm;
+    @apply rounded-[4px] border border-borde bg-superficie p-4;
   }
   .boton {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-[2px] px-4 py-2 text-sm font-bold transition-colors duration-150 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-texto disabled:cursor-not-allowed disabled:opacity-50;
   }
   .boton-primario {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 bg-primario text-white hover:opacity-90 dark:text-fondo;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-[2px] px-4 py-2 text-sm font-bold transition-colors duration-150 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-texto disabled:cursor-not-allowed disabled:opacity-50 bg-primario text-white hover:bg-primario-hover;
   }
   .boton-secundario {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 border border-borde bg-superficie text-texto hover:bg-fondo;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-[2px] px-4 py-2 text-sm font-bold transition-colors duration-150 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-texto disabled:cursor-not-allowed disabled:opacity-50 border border-borde bg-superficie text-texto hover:bg-superficie-elevada;
   }
-  .boton-acento {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 bg-acento text-white hover:opacity-90;
+  /* Acción importante pero no urgente: contorno rojo. */
+  .boton-contorno {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-[2px] px-4 py-2 text-sm font-bold transition-colors duration-150 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-texto disabled:cursor-not-allowed disabled:opacity-50 border-2 border-primario bg-superficie text-primario hover:bg-primario-suave;
   }
   .campo {
-    @apply w-full rounded-lg border border-borde bg-superficie px-3 py-2 text-texto outline-none focus:border-primario focus:ring-2 focus:ring-primario/30;
+    @apply min-h-11 w-full rounded-[2px] border border-borde bg-superficie px-3 py-2 text-texto outline-none focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-primario;
   }
   .etiqueta {
-    @apply block text-sm font-medium text-texto-suave mb-1;
+    @apply mb-1 block text-sm font-bold text-texto-suave;
   }
   .chip {
-    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    @apply inline-flex items-center rounded-[2px] px-2 py-0.5 text-xs font-bold tracking-[0.04em];
+  }
+  /* Etiqueta deportiva corta: «JORNADA 3», «PUNTOS»… */
+  .rotulo {
+    @apply text-xs font-bold tracking-[0.06em] text-texto-suave uppercase;
+  }
+  .titulo-pagina {
+    @apply font-display text-3xl leading-[0.95] tracking-tight uppercase sm:text-4xl;
+  }
+  /* El «banderín»: cuña roja que marca el inicio de un título. */
+  .banderin {
+    @apply relative pl-5 before:absolute before:top-[0.1em] before:left-0 before:h-[0.8em] before:w-3 before:bg-rivas-rojo before:[clip-path:polygon(0_0,100%_50%,0_100%)];
+  }
+  .cifra {
+    font-variant-numeric: tabular-nums;
   }
 }

@@ -28,7 +28,9 @@ export default async function Proponer({ params }: { params: Promise<{ id: strin
           Jornada {partido.jornada} · semana del {formatearDia(partido.semana)} · Grupo{" "}
           {partido.grupo.letra}
         </p>
-        <h1 className="text-2xl font-bold">Proponer horario a {formatearNombre(rival.nombre)}</h1>
+        <h1 className="titulo-pagina banderin">
+          Proponer horario a {formatearNombre(rival.nombre)}
+        </h1>
         {!local && (
           <p className="mt-1 text-sm text-acento">
             Juegas de visitante: le toca proponer a tu rival, pero puedes adelantarte si quieres.

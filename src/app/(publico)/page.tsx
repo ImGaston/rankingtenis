@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { iniciarSesionGoogle } from "./acciones";
 
@@ -8,19 +9,26 @@ export default async function Inicio({
 }) {
   const { error, siguiente, cuenta } = await searchParams;
   return (
-    <main className="flex flex-1 flex-col items-center justify-center px-4 py-12">
-      <div className="w-full max-w-md space-y-8">
-        <header className="space-y-3 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-primario">
-            Rivas Vaciamadrid
-          </p>
-          <h1 className="text-3xl font-bold tracking-tight">Ranking de Tenis</h1>
-          <p className="text-texto-suave">
+    <main className="flex flex-1 flex-col border-t-4 border-t-rivas-rojo">
+      <section className="bg-[#171717] text-white">
+        <div className="mx-auto w-full max-w-md px-4 pt-10 pb-8">
+          <div className="flex items-center gap-3">
+            <Image src="/logo-rivas.png" alt="Rivas Vaciamadrid" width={38} height={40} priority />
+            <p className="text-xs font-bold tracking-[0.06em] text-white/75 uppercase">
+              Rivas Vaciamadrid · Liga municipal
+            </p>
+          </div>
+          <h1 className="mt-6 font-display text-5xl leading-[0.95] uppercase">
+            Ranking
+            <span className="block text-rivas-rojo">de tenis</span>
+          </h1>
+          <p className="mt-4 text-white/80">
             Tus partidos de la fase, el contacto de cada rival, el WhatsApp para proponer horario y
             el mail de resultado con la plantilla oficial. Todo en un sitio.
           </p>
-        </header>
-
+        </div>
+      </section>
+      <div className="mx-auto w-full max-w-md flex-1 space-y-8 px-4 py-8">
         <div className="tarjeta space-y-4">
           <form action={iniciarSesionGoogle} className="space-y-3">
             <input type="hidden" name="siguiente" value={siguiente ?? "/partidos"} />
@@ -52,7 +60,7 @@ export default async function Inicio({
             </p>
           )}
           {cuenta === "eliminada" && (
-            <p className="text-sm text-primario" role="status">
+            <p className="text-sm font-bold text-exito" role="status">
               Tu cuenta se ha eliminado. Puedes volver a entrar cuando quieras.
             </p>
           )}

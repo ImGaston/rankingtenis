@@ -1,5 +1,6 @@
 import { formatearNombre } from "@/lib/dominio/nombres";
 import type { ClasificacionDetalle } from "@/lib/consultas/clasificacion";
+import { CeldaPosicion, EtiquetaTu } from "@/componentes/posicion";
 
 /**
  * Tabla de clasificación de un grupo tal como la publica la liga. Columnas:
@@ -15,7 +16,7 @@ export function TablaClasificacion({
   if (filas.length === 0) {
     return (
       <p className="text-sm text-texto-suave">
-        La liga todavía no comunicó la clasificación de este grupo.
+        Todavía no hay jugadores clasificados en este grupo.
       </p>
     );
   }
@@ -23,33 +24,41 @@ export function TablaClasificacion({
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
-        <thead className="text-left text-texto-suave">
+        <thead className="rotulo text-left">
           <tr>
-            <th className="py-1 pr-2 font-medium">Pos</th>
-            <th className="py-1 pr-3 font-medium">Jugador</th>
-            <th className="py-1 pr-2 text-right font-medium" title="Jugados">
+            <th scope="col" className="py-2 pr-2 font-bold">
+              Pos
+            </th>
+            <th scope="col" className="py-2 pr-3 font-bold">
+              Jugador
+            </th>
+            <th scope="col" className="py-2 pr-2 text-right font-bold" title="Jugados">
               J
             </th>
-            <th className="py-1 pr-2 text-right font-medium" title="Ganados">
+            <th scope="col" className="py-2 pr-2 text-right font-bold" title="Ganados">
               G
             </th>
-            <th className="py-1 pr-2 text-right font-medium" title="Perdidos">
+            <th scope="col" className="py-2 pr-2 text-right font-bold" title="Perdidos">
               P
             </th>
-            <th className="py-1 pr-2 text-right font-medium" title="Sets a favor / en contra">
+            <th
+              scope="col"
+              className="py-2 pr-2 text-right font-bold"
+              title="Sets a favor / en contra"
+            >
               Sets
             </th>
             {haySanciones && (
-              <th className="py-1 pr-2 text-right font-medium" title="Puntos de sanción">
+              <th scope="col" className="py-2 pr-2 text-right font-bold" title="Puntos de sanción">
                 PS
               </th>
             )}
             {haySanciones && (
-              <th className="py-1 pr-2 text-right font-medium" title="No presentados">
+              <th scope="col" className="py-2 pr-2 text-right font-bold" title="No presentados">
                 NP
               </th>
             )}
-            <th className="py-1 text-right font-medium" title="Puntos">
+            <th scope="col" className="py-2 text-right font-bold" title="Puntos">
               PT
             </th>
           </tr>
@@ -60,23 +69,22 @@ export function TablaClasificacion({
             return (
               <tr
                 key={f.jugador_id}
-                className={`border-t border-borde ${yo ? "bg-primario-suave font-semibold" : ""}`}
+                className={`border-t border-borde ${yo ? "bg-primario-suave font-bold" : ""}`}
               >
-                <td className="py-1 pr-2">{f.posicion}</td>
-                <td className="py-1 pr-3">{formatearNombre(f.jugador.nombre)}</td>
-                <td className="py-1 pr-2 text-right tabular-nums">{f.jugados}</td>
-                <td className="py-1 pr-2 text-right tabular-nums">{f.ganados}</td>
-                <td className="py-1 pr-2 text-right tabular-nums">{f.perdidos}</td>
-                <td className="py-1 pr-2 text-right tabular-nums whitespace-nowrap">
+                <CeldaPosicion posicion={f.posicion} />
+                <td className="py-2 pr-3 font-bold">
+                  {formatearNombre(f.jugador.nombre)}
+                  {yo && <EtiquetaTu />}
+                </td>
+                <td className="py-2 pr-2 text-right cifra">{f.jugados}</td>
+                <td className="py-2 pr-2 text-right cifra">{f.ganados}</td>
+                <td className="py-2 pr-2 text-right cifra">{f.perdidos}</td>
+                <td className="py-2 pr-2 text-right cifra whitespace-nowrap">
                   {f.sets_favor}-{f.sets_contra}
                 </td>
-                {haySanciones && (
-                  <td className="py-1 pr-2 text-right tabular-nums">{f.puntos_sancion}</td>
-                )}
-                {haySanciones && (
-                  <td className="py-1 pr-2 text-right tabular-nums">{f.no_presentados}</td>
-                )}
-                <td className="py-1 text-right tabular-nums font-semibold">{f.puntos}</td>
+                {haySanciones && <td className="py-2 pr-2 text-right cifra">{f.puntos_sancion}</td>}
+                {haySanciones && <td className="py-2 pr-2 text-right cifra">{f.no_presentados}</td>}
+                <td className="py-2 text-right cifra font-display text-lg">{f.puntos}</td>
               </tr>
             );
           })}

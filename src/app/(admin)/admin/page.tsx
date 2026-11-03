@@ -21,7 +21,7 @@ export default async function AdminResumen() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Resumen</h1>
+      <h1 className="titulo-pagina banderin">Resumen</h1>
       <div className="grid gap-4 sm:grid-cols-3">
         <Link href="/admin/fases" className="tarjeta space-y-1 hover:border-primario">
           <p className="text-sm text-texto-suave">Fase actual</p>
@@ -49,7 +49,7 @@ export default async function AdminResumen() {
       </div>
 
       <section className="tarjeta space-y-2 text-sm text-texto-suave">
-        <h2 className="font-semibold text-texto">Cómo entran los datos</h2>
+        <h2 className="text-lg font-bold text-texto">Cómo entran los datos</h2>
         <p>
           El agente de Claude lee los mails de la liga y llama a <code>cargar_ingesta</code>. Las
           fases nuevas llegan sin publicar: revísalas en{" "}

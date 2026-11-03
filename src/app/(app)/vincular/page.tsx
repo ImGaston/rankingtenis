@@ -23,7 +23,7 @@ export default async function Vincular() {
   return (
     <div className="mx-auto max-w-md space-y-6">
       <header className="space-y-2">
-        <h1 className="text-2xl font-bold">¿Quién eres en el ranking?</h1>
+        <h1 className="titulo-pagina banderin">¿Quién eres en el ranking?</h1>
         <p className="text-texto-suave">
           Tu correo <strong className="text-texto">{usuario.email}</strong> no coincide con ninguno
           de la lista de la liga. Elige tu nombre y el administrador lo confirmará.
@@ -31,7 +31,7 @@ export default async function Vincular() {
       </header>
 
       {usuario.estado_vinculo === "pendiente" && (
-        <div className="tarjeta border-acento/40 bg-acento-suave space-y-1">
+        <div className="tarjeta border-rivas-amarillo bg-acento-suave space-y-1">
           <p className="font-semibold">Solicitud enviada</p>
           <p className="text-sm text-texto-suave">
             Pediste vincularte como{" "}

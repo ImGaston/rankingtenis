@@ -21,15 +21,15 @@ export default async function Perfil({
         ← Mis partidos
       </Link>
       <header>
-        <h1 className="text-2xl font-bold">Tu perfil</h1>
+        <h1 className="titulo-pagina banderin">Tu perfil</h1>
         <p className="text-texto-suave">{usuario.email}</p>
       </header>
 
       <form action={guardarApodo} className="tarjeta space-y-4">
         {nombreLiga && (
           <p className="text-sm text-texto-suave">
-            En la lista de la liga figuras como{" "}
-            <strong className="text-texto">{nombreLiga}</strong>.
+            En la lista de la liga figuras como <strong className="text-texto">{nombreLiga}</strong>
+            .
           </p>
         )}
         <label className="block">
@@ -62,7 +62,7 @@ export default async function Perfil({
       </form>
 
       <section className="tarjeta border-peligro/40 space-y-3">
-        <h2 className="font-semibold">Eliminar cuenta</h2>
+        <h2 className="text-lg font-bold">Eliminar cuenta</h2>
         <p className="text-sm text-texto-suave">
           Se borra tu acceso a la app y tus propuestas de horario. Tu ficha en el ranking es de la
           liga y sigue ahí; los resultados y W.O. que registraste se conservan para tu rival. Puedes

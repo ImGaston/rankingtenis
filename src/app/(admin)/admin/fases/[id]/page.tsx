@@ -75,7 +75,7 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
         ← Fases
       </Link>
       <header className="flex flex-wrap items-center gap-3">
-        <h1 className="text-2xl font-bold">
+        <h1 className="titulo-pagina banderin">
           {fase.numero}ª fase {fase.temporada}
         </h1>
         <span
@@ -87,8 +87,8 @@ export default async function RevisarFase({ params }: { params: Promise<{ id: st
       </header>
 
       {ingesta && ingesta.avisos.length > 0 && (
-        <section className="tarjeta border-acento/40 space-y-2">
-          <h2 className="font-semibold">Avisos de la última ingesta</h2>
+        <section className="tarjeta border-rivas-amarillo space-y-2">
+          <h2 className="text-lg font-bold">Avisos de la última ingesta</h2>
           <ul className="list-disc space-y-1 pl-5 text-sm">
             {ingesta.avisos.map((a, i) => (
               <li key={i}>

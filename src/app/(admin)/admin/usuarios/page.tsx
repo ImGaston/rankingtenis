@@ -43,7 +43,7 @@ export default async function AdminUsuarios() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold">Usuarios</h1>
+        <h1 className="titulo-pagina banderin">Usuarios</h1>
         <p className="text-texto-suave">
           Cuentas que entraron con Google y su vínculo con un jugador del directorio.
         </p>
@@ -51,11 +51,11 @@ export default async function AdminUsuarios() {
 
       {pendientes.length > 0 && (
         <section className="space-y-3">
-          <h2 className="font-semibold">Pendientes de aprobar ({pendientes.length})</h2>
+          <h2 className="text-lg font-bold">Pendientes de aprobar ({pendientes.length})</h2>
           {pendientes.map((u) => (
             <article
               key={u.id}
-              className="tarjeta border-acento/40 flex flex-wrap items-center justify-between gap-3"
+              className="tarjeta border-rivas-amarillo flex flex-wrap items-center justify-between gap-3"
             >
               <div>
                 <p className="font-medium">{u.email}</p>
@@ -86,7 +86,7 @@ export default async function AdminUsuarios() {
       )}
 
       <section className="space-y-3">
-        <h2 className="font-semibold">Todos ({lista.length})</h2>
+        <h2 className="text-lg font-bold">Todos ({lista.length})</h2>
         {resto.length === 0 && pendientes.length === 0 && (
           <div className="tarjeta text-texto-suave">Nadie ha entrado todavía.</div>
         )}

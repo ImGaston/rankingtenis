@@ -5,10 +5,10 @@ export const metadata = { title: "Privacidad" };
 export default function Privacidad() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-10 space-y-6">
-      <Link href="/" className="text-sm text-primario underline">
+      <Link href="/" className="text-sm font-bold text-primario underline underline-offset-4">
         ← Volver
       </Link>
-      <h1 className="text-2xl font-bold">Qué datos se guardan y por qué</h1>
+      <h1 className="titulo-pagina banderin">Qué datos se guardan y por qué</h1>
       <div className="space-y-4 text-texto-suave leading-relaxed">
         <p>
           Esta aplicación es una herramienta privada hecha por un jugador del Ranking de Tenis de
@@ -40,9 +40,9 @@ export default function Privacidad() {
         <p>
           Puedes eliminar tu cuenta de la app en cualquier momento desde tu perfil, y pedir que se
           corrijan o eliminen el resto de tus datos escribiendo al administrador de la app, que es
-          quien figura como responsable del tratamiento. Si
-          prefieres no aparecer, se elimina tu ficha y el resto de tu grupo seguirá teniendo tus
-          datos solo por el canal oficial de la liga.
+          quien figura como responsable del tratamiento. Si prefieres no aparecer, se elimina tu
+          ficha y el resto de tu grupo seguirá teniendo tus datos solo por el canal oficial de la
+          liga.
         </p>
       </div>
     </main>

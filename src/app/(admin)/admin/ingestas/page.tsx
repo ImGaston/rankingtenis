@@ -31,7 +31,7 @@ export default async function AdminIngestas() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold">Ingestas</h1>
+        <h1 className="titulo-pagina banderin">Ingestas</h1>
         <p className="text-texto-suave">
           Cada corrida del agente que cargó datos desde los mails de la liga.
         </p>

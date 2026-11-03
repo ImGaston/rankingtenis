@@ -67,7 +67,7 @@ export function FormularioPropuesta(p: Props) {
   return (
     <div className="space-y-6">
       <section className="tarjeta space-y-3">
-        <h2 className="font-semibold">1. Marca cuándo te va bien</h2>
+        <h2 className="text-lg font-bold">1. Marca cuándo te va bien</h2>
         <p className="text-sm text-texto-suave">
           Las pistas del ranking se alquilan en bloques de 2 horas. Puedes marcar varias franjas.
         </p>
@@ -99,9 +99,9 @@ export function FormularioPropuesta(p: Props) {
                           aria-pressed={activa}
                           aria-label={`${formatearDia(fecha)} de ${inicio} a ${fin}`}
                           onClick={() => alternar(f)}
-                          className={`h-9 w-full rounded-md border transition ${
+                          className={`h-9 w-full rounded-[2px] border transition-colors ${
                             activa
-                              ? "border-primario bg-primario text-white dark:text-fondo"
+                              ? "border-primario bg-primario text-white"
                               : "border-borde bg-superficie hover:bg-fondo"
                           }`}
                         >
@@ -118,7 +118,7 @@ export function FormularioPropuesta(p: Props) {
       </section>
 
       <section className="tarjeta space-y-3">
-        <h2 className="font-semibold">2. Revisa el mensaje</h2>
+        <h2 className="text-lg font-bold">2. Revisa el mensaje</h2>
         <textarea
           className="campo min-h-40 font-mono text-sm"
           value={texto}
@@ -127,7 +127,7 @@ export function FormularioPropuesta(p: Props) {
         {textoEditado !== null && (
           <button
             type="button"
-            className="text-sm text-primario underline"
+            className="text-sm font-bold text-primario underline underline-offset-4"
             onClick={() => setTextoEditado(null)}
           >
             Volver al texto automático
@@ -136,7 +136,7 @@ export function FormularioPropuesta(p: Props) {
       </section>
 
       <section className="tarjeta space-y-3">
-        <h2 className="font-semibold">3. Envíalo</h2>
+        <h2 className="text-lg font-bold">3. Envíalo</h2>
         <div className="flex flex-wrap gap-2">
           {p.telefonoRival ? (
             <a
@@ -144,7 +144,7 @@ export function FormularioPropuesta(p: Props) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={registrar}
-              className="boton-acento"
+              className="boton-primario"
             >
               Abrir WhatsApp
             </a>
