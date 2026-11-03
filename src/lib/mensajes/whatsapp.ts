@@ -25,10 +25,11 @@ export function armarMensajeWhatsapp(d: DatosPropuesta): string {
 }
 
 /**
- * Enlace wa.me para abrir WhatsApp con el mensaje. El teléfono va en E.164
- * sin el signo más.
+ * Enlace wa.me para abrir WhatsApp con el mensaje (o solo el chat si no hay
+ * texto). El teléfono va en E.164 sin el signo más.
  */
-export function urlWhatsapp(telefonoE164: string, texto: string): string {
+export function urlWhatsapp(telefonoE164: string, texto = ""): string {
   const numero = telefonoE164.replace(/[^0-9]/g, "");
-  return `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
+  const base = `https://wa.me/${numero}`;
+  return texto ? `${base}?text=${encodeURIComponent(texto)}` : base;
 }

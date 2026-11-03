@@ -11,6 +11,7 @@ import {
 import { formatearNombre, formatearTelefono } from "@/lib/dominio/nombres";
 import { formatearSets } from "@/lib/dominio/sets";
 import { formatearDia } from "@/lib/mensajes/franjas";
+import { urlWhatsapp } from "@/lib/mensajes/whatsapp";
 import { BotonReiniciar } from "@/componentes/boton-reiniciar";
 import { BotonQuitarWo } from "@/componentes/boton-quitar-wo";
 import { describirWalkover } from "@/lib/dominio/walkover";
@@ -200,7 +201,13 @@ export default async function Partidos() {
                   <div>
                     <dt className="sr-only">Teléfono</dt>
                     <dd>
-                      <a href={`tel:${rival.telefono}`} className="underline">
+                      <a
+                        href={urlWhatsapp(rival.telefono)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline"
+                        title="Abrir chat de WhatsApp"
+                      >
                         {formatearTelefono(rival.telefono)}
                       </a>
                     </dd>
