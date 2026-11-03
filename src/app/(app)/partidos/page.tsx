@@ -8,7 +8,7 @@ import {
   rivalDe,
   soyLocal,
 } from "@/lib/consultas/partidos";
-import { formatearNombre, formatearTelefono } from "@/lib/dominio/nombres";
+import { formatearNombre, formatearTelefono, nombreDePila } from "@/lib/dominio/nombres";
 import { formatearSets } from "@/lib/dominio/sets";
 import { formatearDia } from "@/lib/mensajes/franjas";
 import { urlWhatsapp } from "@/lib/mensajes/whatsapp";
@@ -47,7 +47,7 @@ export default async function Partidos() {
         <div>
           <h1 className="text-2xl font-bold">Mis partidos</h1>
           <p className="text-texto-suave">
-            {nombreFase(grupo.fase)} · Grupo {grupo.letra} · {formatearNombre(jugador.nombre)}
+            {nombreFase(grupo.fase)} · Grupo {grupo.letra} · {nombreDePila(jugador.nombre)}
           </p>
         </div>
         <div className="flex flex-col items-start gap-2 sm:items-end">

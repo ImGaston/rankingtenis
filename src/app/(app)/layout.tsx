@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { exigirSesion } from "@/lib/consultas/sesion";
-import { formatearNombre } from "@/lib/dominio/nombres";
+import { nombreDePila } from "@/lib/dominio/nombres";
 
 export default async function LayoutApp({ children }: { children: ReactNode }) {
   const { usuario, jugador } = await exigirSesion();
@@ -47,7 +47,7 @@ export default async function LayoutApp({ children }: { children: ReactNode }) {
               className="hidden max-w-[12rem] truncate text-texto-suave sm:inline"
               title={usuario.email}
             >
-              {jugador ? formatearNombre(jugador.nombre) : usuario.email}
+              {jugador ? nombreDePila(jugador.nombre) : usuario.email}
             </span>
             <form action="/auth/salir" method="post">
               <button
