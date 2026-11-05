@@ -157,12 +157,43 @@ begin
   values (v_partido, auth.uid(), v_rival, 'lesion');
 end $$;
 
+-- Reserva de pista: la anota un jugador del partido; en uno ajeno, no ------
+do $$
+declare v_partido uuid; v_otro uuid; v_yo uuid := mi_jugador_id();
+begin
+  select id into v_partido from public.partidos where local_id = v_yo order by jornada limit 1;
+  insert into public.reservas_pista (partido_id, usuario_id, fecha, inicio, fin, sede, pista)
+  values (v_partido, auth.uid(), '2026-11-05', '18:00', '20:00', 'cerro', '5');
+  assert (select count(*) from public.reservas_pista) = 1, 'veo mi reserva';
+  -- cambiarla con upsert: sustituye la anterior
+  insert into public.reservas_pista (partido_id, usuario_id, fecha, inicio, fin, sede, pista)
+  values (v_partido, auth.uid(), '2026-11-06', '09:00', '11:00', 'sureste', '1')
+  on conflict (partido_id) do update set fecha = excluded.fecha, inicio = excluded.inicio,
+    fin = excluded.fin, sede = excluded.sede, pista = excluded.pista, usuario_id = excluded.usuario_id;
+  assert (select sede from public.reservas_pista where partido_id = v_partido) = 'sureste', 'reserva cambiada';
+  -- sede inventada: la corta el check
+  begin
+    update public.reservas_pista set sede = 'otra' where partido_id = v_partido;
+    raise exception 'no debería admitir una sede desconocida';
+  exception when check_violation then null;
+  end;
+  -- reserva en un partido ajeno: la corta la RLS
+  select id into v_otro from public.partidos where v_yo not in (local_id, visitante_id) limit 1;
+  begin
+    insert into public.reservas_pista (partido_id, usuario_id, fecha, inicio, fin, sede, pista)
+    values (v_otro, auth.uid(), '2026-11-05', '18:00', '20:00', 'cerro', '5');
+    raise exception 'no debería poder reservar en partido ajeno';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+
 -- Usuario sin vínculo: no ve nada, pero puede listar nombres y solicitar
 select set_config('request.jwt.claims', '{"sub":"00000000-0000-0000-0000-000000000003","role":"authenticated"}', false);
 do $$ begin
   assert (select count(*) from public.partidos) = 0, 'sin vínculo: 0 partidos';
   assert (select count(*) from public.jugadores) = 0, 'sin vínculo: 0 jugadores';
   assert (select count(*) from public.walkovers) = 0, 'sin vínculo: 0 W.O.';
+  assert (select count(*) from public.reservas_pista) = 0, 'sin vínculo: 0 reservas';
   assert (select count(*) from listar_jugadores_fase()) = 8, 'lista 8 nombres de la fase actual';
   perform solicitar_vinculo((select id from listar_jugadores_fase() limit 1));
   assert (select estado_vinculo from public.usuarios where id = auth.uid()) = 'pendiente', 'pendiente';

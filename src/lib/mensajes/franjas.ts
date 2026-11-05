@@ -44,6 +44,31 @@ export function formatearDia(iso: string, opciones: { corto?: boolean } = {}): s
   return `${nombre} ${dd}/${mm}`;
 }
 
+const MESES_CORTOS = [
+  "ene",
+  "feb",
+  "mar",
+  "abr",
+  "may",
+  "jun",
+  "jul",
+  "ago",
+  "sep",
+  "oct",
+  "nov",
+  "dic",
+];
+
+/** { dia: "jue", numero: 6, mes: "nov" } para pintar una fecha como calendario. */
+export function partesFecha(iso: string): { dia: string; numero: number; mes: string } {
+  const fecha = aFechaUtc(iso);
+  return {
+    dia: DIAS_CORTOS[fecha.getUTCDay()],
+    numero: fecha.getUTCDate(),
+    mes: MESES_CORTOS[fecha.getUTCMonth()],
+  };
+}
+
 /** "27/10/2026" */
 export function formatearFecha(iso: string): string {
   const [y, m, d] = iso.split("-");

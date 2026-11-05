@@ -214,6 +214,66 @@ export async function quitarWalkover(
   return { ok: true };
 }
 
+const reservaSchema = z.object({
+  partidoId: z.string().uuid(),
+  fecha: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  inicio: z.string().regex(/^\d{2}:\d{2}$/),
+  fin: z.string().regex(/^\d{2}:\d{2}$/),
+  sede: z.enum(["cerro", "sureste"]),
+  pista: z.string().trim().min(1).max(40),
+});
+
+/**
+ * Anota (o sustituye) la pista reservada para el partido. La anota
+ * cualquiera de los dos jugadores; la RLS lo comprueba.
+ */
+export async function guardarReserva(formData: FormData) {
+  const { usuario, jugador } = await exigirJugador();
+  const datos = reservaSchema.parse({
+    partidoId: formData.get("partidoId"),
+    fecha: formData.get("fecha"),
+    inicio: formData.get("inicio"),
+    fin: formData.get("fin"),
+    sede: formData.get("sede"),
+    pista: formData.get("pista"),
+  });
+  const partido = await obtenerPartido(datos.partidoId);
+  if (!partido) throw new Error("Partido no encontrado");
+  if (partido.local_id !== jugador.id && partido.visitante_id !== jugador.id) {
+    throw new Error("No juegas este partido");
+  }
+  const supabase = await crearClienteServidor();
+  const { error } = await supabase.from("reservas_pista").upsert(
+    {
+      partido_id: partido.id,
+      usuario_id: usuario.id,
+      fecha: datos.fecha,
+      inicio: datos.inicio,
+      fin: datos.fin,
+      sede: datos.sede,
+      pista: datos.pista,
+    },
+    { onConflict: "partido_id" },
+  );
+  if (error) throw new Error(`No se pudo guardar la reserva: ${error.message}`);
+  revalidatePath("/partidos");
+  revalidatePath(`/partidos/${partido.id}/reserva`);
+  redirect("/partidos");
+}
+
+/** Quita la reserva anotada (p. ej. si se anuló la pista). */
+export async function quitarReserva(formData: FormData) {
+  await exigirJugador();
+  const id = z.string().uuid().parse(formData.get("partidoId"));
+  const supabase = await crearClienteServidor();
+  // La RLS solo deja borrar a los dos jugadores del partido o al admin.
+  const { error } = await supabase.from("reservas_pista").delete().eq("partido_id", id);
+  if (error) throw new Error(`No se pudo quitar la reserva: ${error.message}`);
+  revalidatePath("/partidos");
+  revalidatePath(`/partidos/${id}/reserva`);
+  redirect("/partidos");
+}
+
 const apodoSchema = z.string().trim().max(40);
 
 /**

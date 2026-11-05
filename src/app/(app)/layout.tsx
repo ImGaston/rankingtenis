@@ -11,6 +11,7 @@ export default async function LayoutApp({ children }: { children: ReactNode }) {
     ...(jugador
       ? [
           { href: "/partidos", texto: "Partidos" },
+          { href: "/pistas", texto: "Pistas" },
           { href: "/clasificacion", texto: "Clasificación" },
           { href: "/ranking", texto: "Ranking" },
         ]

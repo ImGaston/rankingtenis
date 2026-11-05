@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { armarMensajeWhatsapp, urlWhatsapp } from "@/lib/mensajes/whatsapp";
+import { armarMensajeReserva, armarMensajeWhatsapp, urlWhatsapp } from "@/lib/mensajes/whatsapp";
 
 describe("mensaje de WhatsApp", () => {
   it("arma el texto con las franjas", () => {
@@ -44,5 +44,22 @@ describe("mensaje de WhatsApp", () => {
     expect(urlWhatsapp("+34612345678", "Hola, ¿qué tal?")).toBe(
       "https://wa.me/34612345678?text=Hola%2C%20%C2%BFqu%C3%A9%20tal%3F",
     );
+  });
+});
+
+describe("aviso de reserva", () => {
+  it("cuenta al rival día, hora, sede y pista", () => {
+    const texto = armarMensajeReserva({
+      yo: "Gaston",
+      rival: "LOPEZ GARCIA, MARTIN",
+      jornada: 3,
+      fecha: "2026-11-05",
+      inicio: "18:00",
+      fin: "20:00",
+      sede: "Cerro del Telégrafo",
+      pista: "Pista 5",
+    });
+    expect(texto).toContain("jornada 3");
+    expect(texto).toContain("jueves 05/11 de 18:00 a 20:00 en Cerro del Telégrafo, Pista 5.");
   });
 });

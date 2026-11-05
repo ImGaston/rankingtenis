@@ -1,6 +1,7 @@
 import "server-only";
 
 import type { Fase, Jugador, Partido, ResultadoOficial, Walkover } from "@/lib/dominio/tipos";
+import type { ReservaPista } from "@/lib/dominio/pistas";
 import { crearClienteServidor } from "@/lib/supabase/server";
 
 export interface PartidoDetalle extends Partido {
@@ -18,6 +19,8 @@ export interface PartidoDetalle extends Partido {
     Walkover,
     "id" | "ausente_id" | "motivo" | "con_sancion" | "nota" | "creado_at"
   > | null;
+  /** Reserva de pista anotada por uno de los dos jugadores, si la hay. */
+  reserva: Pick<ReservaPista, "id" | "fecha" | "inicio" | "fin" | "sede" | "pista"> | null;
   /** PostgREST devuelve objeto en relaciones uno a uno; por si acaso se admite array. */
   resultados_oficiales: ResultadoOficial | ResultadoOficial[] | null;
 }
@@ -30,18 +33,24 @@ const SELECT = `
   propuestas_horario ( id, creado_at, usuario_id ),
   resultados_enviados ( id, creado_at, usuario_id ),
   walkover:walkovers ( id, ausente_id, motivo, con_sancion, nota, creado_at ),
+  reserva:reservas_pista ( id, fecha, inicio, fin, sede, pista ),
   resultados_oficiales ( partido_id, ganador_id, sets, sets_local, sets_visitante, actualizado_at )
 `;
 
 /**
- * PostgREST devuelve la relación con walkovers como objeto (partido_id es
- * único) pero, por si cambia la detección, se acepta también un array.
+ * PostgREST devuelve las relaciones con walkovers y reservas_pista como
+ * objeto (partido_id es único) pero, por si cambia la detección, se acepta
+ * también un array.
  */
+function unoONulo(valor: unknown): unknown {
+  return Array.isArray(valor) ? (valor[0] ?? null) : (valor ?? null);
+}
+
 function normalizar(fila: Record<string, unknown>): PartidoDetalle {
-  const wo = fila.walkover;
   return {
     ...fila,
-    walkover: Array.isArray(wo) ? (wo[0] ?? null) : (wo ?? null),
+    walkover: unoONulo(fila.walkover),
+    reserva: unoONulo(fila.reserva),
   } as PartidoDetalle;
 }
 

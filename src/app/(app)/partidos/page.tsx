@@ -7,19 +7,23 @@ import {
   resultadoOficialDe,
   rivalDe,
   soyLocal,
+  type PartidoDetalle,
 } from "@/lib/consultas/partidos";
-import { formatearNombre, formatearTelefono, nombreVisible } from "@/lib/dominio/nombres";
+import {
+  formatearNombre,
+  formatearTelefono,
+  nombreDePila,
+  nombreVisible,
+} from "@/lib/dominio/nombres";
 import { formatearSets } from "@/lib/dominio/sets";
-import { formatearDia } from "@/lib/mensajes/franjas";
-import { urlWhatsapp } from "@/lib/mensajes/whatsapp";
+import { formatearDia, partesFecha } from "@/lib/mensajes/franjas";
+import { armarMensajeReserva, urlWhatsapp } from "@/lib/mensajes/whatsapp";
+import { SEDES, TELEFONO_RESERVAS, nombrePista } from "@/lib/dominio/pistas";
 import { BotonReiniciar } from "@/componentes/boton-reiniciar";
 import { BotonQuitarWo } from "@/componentes/boton-quitar-wo";
 import { describirWalkover } from "@/lib/dominio/walkover";
 
 export const metadata = { title: "Mis partidos" };
-
-/** Polideportivo Cerro del Telégrafo: reserva de pistas por teléfono. */
-const TELEFONO_CERRO = "+34916665033";
 
 export default async function Partidos() {
   const { usuario, jugador } = await exigirJugador();
@@ -53,11 +57,11 @@ export default async function Partidos() {
         </div>
         <div className="flex flex-col items-start gap-2 sm:items-end">
           <a
-            href={`tel:${TELEFONO_CERRO}`}
+            href={`tel:${TELEFONO_RESERVAS}`}
             className="boton-secundario"
-            title="Reservar pista en el polideportivo Cerro del Telégrafo"
+            title="Reservar pista del ranking"
           >
-            📞 Reservar pista · {formatearTelefono(TELEFONO_CERRO)}
+            📞 Reservar pista · {formatearTelefono(TELEFONO_RESERVAS)}
           </a>
           <div className="flex flex-wrap items-center gap-3 text-xs text-texto-suave">
             <Link
@@ -178,6 +182,40 @@ export default async function Partidos() {
                 )
               )}
 
+              {!cerrado &&
+                (p.reserva ? (
+                  <BloqueReserva
+                    partidoId={p.id}
+                    reserva={p.reserva}
+                    aviso={
+                      rival.telefono
+                        ? urlWhatsapp(
+                            rival.telefono,
+                            armarMensajeReserva({
+                              yo: nombreVisible(usuario.apodo, jugador.nombre),
+                              rival: rival.nombre,
+                              jornada: p.jornada,
+                              fecha: p.reserva.fecha,
+                              inicio: p.reserva.inicio,
+                              fin: p.reserva.fin,
+                              sede: SEDES[p.reserva.sede],
+                              pista: nombrePista(p.reserva.sede, p.reserva.pista),
+                            }),
+                          )
+                        : null
+                    }
+                    nombreRival={nombreDePila(rival.nombre)}
+                  />
+                ) : (
+                  <Link
+                    href={`/partidos/${p.id}/reserva`}
+                    className="flex min-h-11 items-center justify-between gap-2 rounded-[2px] border border-dashed border-borde px-3 py-2 text-sm text-texto-suave hover:bg-superficie-elevada"
+                  >
+                    Sin pista reservada
+                    <span className="font-bold text-texto">+ Anotar reserva</span>
+                  </Link>
+                ))}
+
               <div className="flex flex-wrap gap-2">
                 {local && !cerrado && (
                   <Link
@@ -266,6 +304,52 @@ export default async function Partidos() {
           );
         })}
       </section>
+    </div>
+  );
+}
+
+function BloqueReserva({
+  partidoId,
+  reserva,
+  aviso,
+  nombreRival,
+}: {
+  partidoId: string;
+  reserva: NonNullable<PartidoDetalle["reserva"]>;
+  aviso: string | null;
+  nombreRival: string;
+}) {
+  const f = partesFecha(reserva.fecha);
+  return (
+    <div className="flex flex-wrap items-center gap-3 rounded-[2px] border border-exito bg-exito-suave px-3 py-2 text-exito">
+      <div className="min-w-11 border-r border-exito/30 pr-3 text-center leading-none">
+        <span className="rotulo block text-exito">{f.dia}</span>
+        <span className="cifra block font-display text-2xl">{f.numero}</span>
+        <span className="rotulo block text-exito">{f.mes}</span>
+      </div>
+      <p className="text-sm">
+        <span className="rotulo block text-exito">Pista reservada</span>
+        <span className="cifra font-bold">
+          {reserva.inicio} – {reserva.fin}
+        </span>
+        <br />
+        {SEDES[reserva.sede]} · {nombrePista(reserva.sede, reserva.pista)}
+      </p>
+      <div className="ml-auto flex flex-col items-end gap-1 text-sm">
+        <Link href={`/partidos/${partidoId}/reserva`} className="underline underline-offset-4">
+          Cambiar
+        </Link>
+        {aviso && (
+          <a
+            href={aviso}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4"
+          >
+            Avisar a {nombreRival}
+          </a>
+        )}
+      </div>
     </div>
   );
 }

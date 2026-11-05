@@ -10,11 +10,12 @@ export default async function Inicio({
   const { error, siguiente, cuenta } = await searchParams;
   return (
     <main className="flex flex-1 flex-col border-t-4 border-t-rivas-rojo">
-      <section className="bg-[#171717] text-white">
+      {/* Fondo blanco fijo (también en modo oscuro): el logo de Rivas lleva texto negro. */}
+      <section className="border-b border-borde bg-white text-rivas-negro">
         <div className="mx-auto w-full max-w-md px-4 pt-10 pb-8">
           <div className="flex items-center gap-3">
             <Image src="/logo-rivas.png" alt="Rivas Vaciamadrid" width={38} height={40} priority />
-            <p className="text-xs font-bold tracking-[0.06em] text-white/75 uppercase">
+            <p className="text-xs font-bold tracking-[0.06em] text-[#5f6063] uppercase">
               Rivas Vaciamadrid · Liga municipal
             </p>
           </div>
@@ -22,7 +23,7 @@ export default async function Inicio({
             Ranking
             <span className="block text-rivas-rojo">de tenis</span>
           </h1>
-          <p className="mt-4 text-white/80">
+          <p className="mt-4 text-[#5f6063]">
             Tus partidos de la fase, el contacto de cada rival, el WhatsApp para proponer horario y
             el mail de resultado con la plantilla oficial. Todo en un sitio.
           </p>

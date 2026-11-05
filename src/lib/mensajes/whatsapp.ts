@@ -1,6 +1,6 @@
 import type { Franja } from "@/lib/dominio/tipos";
 import { nombreDePila } from "@/lib/dominio/nombres";
-import { describirFranjas } from "./franjas";
+import { describirFranjas, formatearDia } from "./franjas";
 
 export interface DatosPropuesta {
   /** Cómo quiere presentarse quien escribe (ver nombreVisible), tal cual. */
@@ -22,6 +22,26 @@ export function armarMensajeWhatsapp(d: DatosPropuesta): string {
     `Hola ${nombreDePila(d.rival)}, soy ${d.yo}, tu rival de la jornada ${d.jornada} del Ranking de Tenis (grupo ${d.grupo}).`,
     disponibilidad,
     "En cuanto me digas reservo la pista.",
+  ].join("\n");
+}
+
+export interface DatosReserva {
+  yo: string;
+  rival: string;
+  jornada: number;
+  fecha: string;
+  inicio: string;
+  fin: string;
+  sede: string;
+  pista: string;
+}
+
+/** Aviso al rival de la pista reservada. */
+export function armarMensajeReserva(d: DatosReserva): string {
+  return [
+    `Hola ${nombreDePila(d.rival)}, soy ${d.yo}. Ya tenemos pista para el partido de la jornada ${d.jornada} del Ranking de Tenis:`,
+    `${formatearDia(d.fecha)} de ${d.inicio} a ${d.fin} en ${d.sede}, ${d.pista}.`,
+    "¡Nos vemos allí!",
   ].join("\n");
 }
 
