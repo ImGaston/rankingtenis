@@ -77,6 +77,29 @@ export function turnosDelDia(dia: DiaSemana): Turno[] {
   return [...turnosCerro(dia), ...turnosSureste(dia)];
 }
 
+export interface FilaGrilla {
+  inicio: string;
+  fin: string;
+  /** Pistas de cada día, de lunes a domingo (vacío si ese día no hay). */
+  porDia: string[][];
+}
+
+/**
+ * La semana de una sede como en el PDF: una fila por turno y una columna por
+ * día. Solo salen los turnos que tienen pista algún día.
+ */
+export function grillaSemanal(sede: Sede): FilaGrilla[] {
+  const dias = ([0, 1, 2, 3, 4, 5, 6] as const).map((d) =>
+    turnosDelDia(d).filter((t) => t.sede === sede),
+  );
+  const inicios = [...new Set(dias.flat().map((t) => t.inicio))].sort();
+  return inicios.map((inicio) => ({
+    inicio,
+    fin: sumarDosHoras(inicio),
+    porDia: dias.map((turnos) => turnos.find((t) => t.inicio === inicio)?.pistas ?? []),
+  }));
+}
+
 /** Día de la semana (lunes = 0) de una fecha YYYY-MM-DD. */
 export function diaSemanaDe(iso: string): DiaSemana {
   const [y, m, d] = iso.split("-").map(Number);

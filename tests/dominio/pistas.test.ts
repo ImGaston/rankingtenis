@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { diaSemanaDe, hoyEnMadrid, nombrePista, turnosDelDia } from "@/lib/dominio/pistas";
+import {
+  diaSemanaDe,
+  grillaSemanal,
+  hoyEnMadrid,
+  nombrePista,
+  turnosDelDia,
+} from "@/lib/dominio/pistas";
 
 function resumen(dia: Parameters<typeof turnosDelDia>[0], sede: "cerro" | "sureste") {
   return turnosDelDia(dia)
@@ -47,5 +53,28 @@ describe("pistas de ranking", () => {
   });
   it("usa la fecha de Madrid aunque en UTC sea otro día", () => {
     expect(hoyEnMadrid(new Date("2026-11-05T23:30:00Z"))).toBe("2026-11-06");
+  });
+});
+
+describe("grilla semanal", () => {
+  it("el Cerro tiene 7 turnos y el de 15 a 17 queda vacío el fin de semana", () => {
+    const filas = grillaSemanal("cerro");
+    expect(filas.map((f) => f.inicio)).toEqual([
+      "09:00",
+      "11:00",
+      "13:00",
+      "15:00",
+      "16:00",
+      "18:00",
+      "20:00",
+    ]);
+    const quince = filas[3];
+    expect(quince.fin).toBe("17:00");
+    expect(quince.porDia).toEqual([["6"], ["6"], ["6"], ["6"], ["4", "6"], [], []]);
+  });
+  it("Parque Sureste no tiene turno de 15 a 17", () => {
+    const filas = grillaSemanal("sureste");
+    expect(filas).toHaveLength(6);
+    expect(filas[0].porDia[6]).toEqual(["1", "2"]);
   });
 });
